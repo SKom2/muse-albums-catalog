@@ -1,4 +1,3 @@
-import './App.css'
 import { store } from '@/services/redux/store.ts';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -6,7 +5,9 @@ import { Routes } from '@/routes/routesData.ts';
 
 function App() {
   return (
-    <Routes isAuthorized={true} />
+    <div className="dark h-full">
+      <Routes isAuthorized={true} />
+    </div>
   )
 }
 

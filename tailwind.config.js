@@ -10,6 +10,11 @@ export default {
         'montserrat': ["Montserrat", 'sans-serif'],
         'roboto': ["Roboto", 'sans-serif'],
       },
+      colors: {
+        bg: "rgba(var(--main-bg-color))",
+        screen: "rgba(var(--primary-screen-color))",
+        primaryText: "rgba(var(--primary-text-color))"
+      }
     },
   },
   plugins: [],

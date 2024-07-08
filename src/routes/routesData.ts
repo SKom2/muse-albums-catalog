@@ -55,7 +55,6 @@ export const routes: IMainRoute[] = [
       {
         name: 'albums',
         title: 'Albums',
-        hasSideLink: true,
         routes: [
           {
             name: 'albums-catalog',
