@@ -23,14 +23,14 @@ export const routes: IMainRoute[] = [
         name: 'login',
         title: 'Login page',
         component: Login,
-        path: Paths.LOGIN, // Используем Enum
+        path: Paths.LOGIN,
         isPublic: true,
       },
       {
         name: 'register',
         title: 'Register page',
         component: Register,
-        path: Paths.REGISTER, // Используем Enum
+        path: Paths.REGISTER,
         isPublic: true,
       }
     ]
