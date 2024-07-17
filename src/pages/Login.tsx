@@ -1,9 +1,7 @@
+import Authorization from '@/containers/Authorization.tsx';
+
 const Login = () => {
-  return (
-    <div>
-      Login page
-    </div>
-  );
+  return <Authorization type="login" />;
 };
 
 export default Login;

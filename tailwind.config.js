@@ -12,8 +12,17 @@ export default {
       },
       colors: {
         bg: "rgba(var(--main-bg-color))",
+
         screen: "rgba(var(--primary-screen-color))",
-        primaryText: "rgba(var(--primary-text-color))"
+
+        primaryText: "rgba(var(--primary-text-color))",
+        secondaryText: "rgba(var(--secondary-text-color))",
+
+        primaryBtn: "rgba(var(--primary-button-color))",
+
+        error: "rgba(var(--error-color))",
+        link: "rgba(var(--link-color))",
+        input: "rgba(var(--input-color))",
       }
     },
   },

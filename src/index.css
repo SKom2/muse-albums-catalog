@@ -11,6 +11,7 @@ html, body {
 
 #root {
     height: 100%;
+    width: 100%;
 }
 
 .dark {
@@ -19,6 +20,13 @@ html, body {
     --primary-screen-color: 50, 50, 50;
 
     --primary-text-color: 255, 255, 255;
+    --secondary-text-color: 186, 186, 186;
+
+    --primary-button-color: 43, 43, 43;
+
+    --error-color: 255, 51, 51;
+    --link-color: 107, 175, 195;
+    --input-color: 24, 24, 24;
 
     background: rgba(var(--main-bg-color));
 }
@@ -29,6 +37,13 @@ html, body {
     --primary-screen-color: 255, 255, 255;
 
     --primary-text-color: 0, 0, 0;
+    --secondary-text-color: 186, 186, 186;
+
+    --primary-button-color: 50, 50, 50;
+
+    --error-color: 255, 51, 51;
+    --link-color: 0, 75, 204;
+    --input-color: 255, 255, 255;
 
     background: rgba(var(--main-bg-color));
 }

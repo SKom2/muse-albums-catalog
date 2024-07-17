@@ -1,5 +1,5 @@
 import { renderRoutes } from '@/routes/generate-routes.tsx';
-import { ComponentType } from 'react';
+import { IMainRoute, Paths } from '@/routes/routes.types.ts';
 
 // Layouts
 import AnonymousLayout from '@/layouts/AnonymousLayout.tsx';
@@ -14,20 +14,6 @@ import CreateAlbum from '@/pages/CreateAlbum.tsx';
 import EditAlbum from '@/pages/EditAlbum.tsx';
 import Favorites from '@/pages/Favorites.tsx';
 
-export interface IRoute {
-  name: string;
-  title: string;
-  component?: ComponentType;
-  path?: string;
-  isPublic?: boolean;
-  hasSideLink?: boolean;
-  routes?: IRoute[];
-}
-
-export interface IMainRoute {
-  layout: ComponentType;
-  routes: IRoute[]
-}
 
 export const routes: IMainRoute[] = [
   {
@@ -37,14 +23,14 @@ export const routes: IMainRoute[] = [
         name: 'login',
         title: 'Login page',
         component: Login,
-        path: '/login',
+        path: Paths.LOGIN, // Используем Enum
         isPublic: true,
       },
       {
         name: 'register',
         title: 'Register page',
         component: Register,
-        path: '/register',
+        path: Paths.REGISTER, // Используем Enum
         isPublic: true,
       }
     ]
@@ -61,35 +47,35 @@ export const routes: IMainRoute[] = [
             title: 'AlbumDetails catalog',
             hasSideLink: true,
             component: AlbumCatalog,
-            path: '/albums',
+            path: Paths.ALBUMS,
           },
           {
             name: 'album-details',
             title: 'AlbumDetails details',
             hasSideLink: true,
             component: AlbumDetails,
-            path: '/albums/:albumId'
+            path: Paths.ALBUM_DETAILS,
           },
           {
             name: 'create-album',
             title: 'Add album',
             hasSideLink: true,
             component: CreateAlbum,
-            path: '/albums/new',
+            path: Paths.CREATE_ALBUM,
           },
           {
             name: 'edit-album',
             title: 'Edit album',
             hasSideLink: true,
             component: EditAlbum,
-            path: '/albums/:albumId/edit',
+            path: Paths.EDIT_ALBUM,
           },
           {
             name: 'favorite-albums',
             title: 'Favorite albums',
             hasSideLink: true,
             component: Favorites,
-            path: '/albums/favorites',
+            path: Paths.FAVORITE_ALBUMS,
           }
         ]
       }

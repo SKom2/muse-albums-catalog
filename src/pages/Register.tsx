@@ -1,9 +1,7 @@
+import Authorization from '@/containers/Authorization.tsx';
+
 const Register = () => {
-  return (
-    <div>
-      Register page
-    </div>
-  );
+  return <Authorization type="register"/>;
 };
 
 export default Register;
