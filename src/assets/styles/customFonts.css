@@ -3,7 +3,7 @@
         @apply font-montserrat text-primaryText text-[26px] font-bold leading-[33.8px];
     }
     .title-sm {
-        @apply font-montserrat text-primaryText text-[22px] font-bold leading-[28.6px];
+        @apply font-montserrat text-primaryText text-[20px] font-bold leading-[28.6px];
     }
     .main-text {
         @apply font-roboto text-primaryText text-base font-normal;

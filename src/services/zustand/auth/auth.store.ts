@@ -32,7 +32,7 @@ const useAuthStore = create<IAuthState>()(
     persist(
       (set) => ({
         session: null,
-        isLoading: true,
+        isLoading: false,
         isAuthorized: false,
         errorMessage: '',
 
@@ -45,17 +45,16 @@ const useAuthStore = create<IAuthState>()(
         },
 
         getCurrentSession: async () => {
-          console.log('da');
           set({ isLoading: true, errorMessage: '' });
           try {
             const response = await authService.getCurrentSession();
             if (response?.session) {
               set({ session: response.session, isAuthorized: true });
-            } else {
-              throw new Error();
+              return Promise.resolve();
             }
           } catch (error: any) {
             set({ errorMessage: error.message });
+            return Promise.reject(error);
           } finally {
             set({ isLoading: false });
           }
@@ -66,8 +65,10 @@ const useAuthStore = create<IAuthState>()(
           try {
             set({ session: null, isAuthorized: false });
             await authService.signOut()
+            return Promise.resolve();
           } catch (error: any) {
             set({ errorMessage: error.message });
+            return Promise.reject(error);
           } finally {
             set({ isLoading: false });
           }

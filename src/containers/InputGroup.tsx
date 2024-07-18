@@ -4,7 +4,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form';
 const InputGroup = ({ register }: { register: UseFormRegister<FieldValues> }) => {
   return (
     <div
-      className="gap-2 flex flex-col"
+      className="gap-4 flex flex-col"
     >
       <Input
         name="email"

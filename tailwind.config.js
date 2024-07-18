@@ -19,6 +19,7 @@ export default {
         secondaryText: "rgba(var(--secondary-text-color))",
 
         primaryBtn: "rgba(var(--primary-button-color))",
+        hoverBtn: "rgba(var(--hover-button-color))",
 
         error: "rgba(var(--error-color))",
         link: "rgba(var(--link-color))",

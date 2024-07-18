@@ -2,7 +2,7 @@ import { renderRoutes } from '@/routes/generate-routes.tsx';
 import { IMainRoute, Paths } from '@/routes/routes.types.ts';
 
 // Layouts
-import AnonymousLayout from '@/layouts/AnonymousLayout.tsx';
+import AuthorizationLayout from '@/layouts/AuthorizationLayout.tsx';
 import MainLayout from '@/layouts/MainLayout.tsx';
 
 // Pages
@@ -17,7 +17,7 @@ import Favorites from '@/pages/Favorites.tsx';
 
 export const routes: IMainRoute[] = [
   {
-    layout: AnonymousLayout,
+    layout: AuthorizationLayout,
     routes: [
       {
         name: 'login',

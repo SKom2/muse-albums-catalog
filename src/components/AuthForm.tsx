@@ -36,7 +36,7 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
   const linkPath = isLogin ? '/register' : '/login';
 
   return (
-    <form className="gap-4 flex flex-col items-stretch" autoComplete="off" onSubmit={handleSubmit(handleFormSubmit)}>
+    <form className="gap-6 flex flex-col items-stretch" autoComplete="off" onSubmit={handleSubmit(handleFormSubmit)}>
       <InputGroup register={register} />
       <Error />
       <Button text={buttonText} />
