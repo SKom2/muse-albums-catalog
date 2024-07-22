@@ -1,12 +1,16 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Routes } from './routes/routes.data.ts';
+import { useEffect } from 'react';
+import useAuthStore from '@/services/zustand/auth/auth.store.ts';
 
 function App() {
-  return (
-    <div className="dark h-full w-full main-text">
-      <Routes />
-    </div>
-  )
+  const getSession = useAuthStore(state => state.getCurrentSession)
+
+  useEffect(() => {
+    getSession();
+  }, []);
+
+  return <Routes />;
 }
 
 const WrappedApp = () => {

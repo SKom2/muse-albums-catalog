@@ -13,9 +13,12 @@ const handleAuth = async (
   try {
     const response = await authFunc(data);
     if (response?.session) {
-      set({ session: response.session, isAuthorized: true });
+      set({ session: response.session, user: response.session?.user, isAuthorized: !!response.session?.access_token });
       return Promise.resolve();
-    } else {
+    } else if (response?.user) {
+      return Promise.resolve();
+    }
+      else {
       throw new Error('Authentication failed');
     }
   } catch (error: any) {
@@ -32,6 +35,7 @@ const useAuthStore = create<IAuthState>()(
     persist(
       (set) => ({
         session: null,
+        user: null,
         isLoading: false,
         isAuthorized: false,
         errorMessage: '',
@@ -49,7 +53,7 @@ const useAuthStore = create<IAuthState>()(
           try {
             const response = await authService.getCurrentSession();
             if (response?.session) {
-              set({ session: response.session, isAuthorized: true });
+              set({ session: response.session, user: response.session?.user, isAuthorized: !!response.session?.access_token });
               return Promise.resolve();
             }
           } catch (error: any) {
@@ -72,7 +76,8 @@ const useAuthStore = create<IAuthState>()(
           } finally {
             set({ isLoading: false });
           }
-        }
+        },
+
       }),
       {
         name: 'auth-storage',

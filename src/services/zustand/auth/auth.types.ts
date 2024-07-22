@@ -1,8 +1,9 @@
-import { Session } from '@supabase/supabase-js';
+import { Session, User } from '@supabase/supabase-js';
 import { FieldValues } from 'react-hook-form';
 
 export interface IAuthState {
-  session: Session | null;
+  session: Session | null | undefined;
+  user: User | null | undefined;
   isLoading: boolean;
   isAuthorized: boolean;
   errorMessage: string;

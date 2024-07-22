@@ -40,7 +40,7 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
       <InputGroup register={register} />
       <Error />
       <Button text={buttonText} />
-      <p className="self-center">
+      <p className="self-center main-text">
         or <Link className="text-link" to={linkPath}>{linkText}</Link>
       </p>
     </form>
