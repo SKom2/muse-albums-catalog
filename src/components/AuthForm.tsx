@@ -6,6 +6,7 @@ import Error from '@/ui/Error.tsx';
 import ConfirmationPortal from '@/components/ConfirmationModal.tsx';
 import { useAuthForm } from '@/hooks/useAuthForm.ts';
 import useAuthStore from '@/services/zustand/auth/auth.store.ts';
+import { Paths } from '@/routes/routes.types.ts';
 
 export interface AuthFormProps {
   type: 'register' | 'login';
@@ -23,7 +24,7 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
 
   const buttonText = isLoading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up';
   const linkText = isLogin ? 'sign up' : 'log in';
-  const linkPath = isLogin ? '/register' : '/login';
+  const linkPath = isLogin ? Paths.REGISTER : Paths.LOGIN;
 
   return (
     <>

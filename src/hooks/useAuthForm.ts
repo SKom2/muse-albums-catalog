@@ -2,6 +2,7 @@ import useAuthStore from '@/services/zustand/auth/auth.store.ts';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { Paths } from '@/routes/routes.types.ts';
 
 export const useAuthForm = (type: 'register' | 'login') => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
@@ -18,12 +19,12 @@ export const useAuthForm = (type: 'register' | 'login') => {
     await action(data)
       .then(() => {
         if (isLogin) {
-          navigate('/albums');
+          navigate(Paths.ALBUMS);
         } else {
           setIsPortalOpen(true);
           setTimeout(() => {
             setIsPortalOpen(false);
-            navigate('/login');
+            navigate(Paths.LOGIN);
           }, 5000);
         }
       })
