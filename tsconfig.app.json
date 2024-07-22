@@ -28,6 +28,7 @@
       "@/assets/*": ["assets/*"],
       "@/components/*": ["components/*"],
       "@/containers/*": ["containers/*"],
+      "@/context/*": ["context/*"],
       "@/hooks/*": ["hooks/*"],
       "@/layouts/*": ["layouts/*"],
       "@/pages/*": ["pages/*"],

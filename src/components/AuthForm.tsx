@@ -41,7 +41,7 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
       <Error />
       <Button text={buttonText} />
       <p className="self-center main-text">
-        or <Link className="text-link" to={linkPath}>{linkText}</Link>
+        or <Link className="text-link-default" to={linkPath}>{linkText}</Link>
       </p>
     </form>
   );

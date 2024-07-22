@@ -1,0 +1,20 @@
+@layer components {
+    .heading {
+        @apply text-3xl font-bold leading-2xl;
+    }
+    .heading-2 {
+        @apply text-2xl font-bold leading-xl;
+    }
+    .main-text {
+        @apply text-md font-normal leading-md;
+    }
+    .main-text-sm {
+        @apply text-sm font-normal leading-sm;
+    }
+    .subheading {
+        @apply text-lg font-normal leading-lg;
+    }
+    .caption {
+        @apply text-lg font-light leading-lg;
+    }
+}

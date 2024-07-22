@@ -16,7 +16,7 @@ const Input: FC<InputProps> = ({  name, autoComplete, register, type = "text", p
       {...register(name)}
       type={type}
       placeholder={placeholder}
-      className="w-full h-11 pl-3 shadow rounded-xl bg-input main-text border border-screen focus:outline-none appearance-none"
+      className="w-full h-11 pl-3 shadow rounded-xl bg-input-default main-text border border-content-primary focus:outline-none appearance-none"
       autoComplete={autoComplete}
       required={required}
     />

@@ -7,24 +7,42 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'montserrat': ["Montserrat", 'sans-serif'],
-        'roboto': ["Roboto", 'sans-serif'],
+        'serif': "var(--font-montserrat)",
+        'sans-serif': "var(--font-roboto)",
       },
       colors: {
-        bg: "rgba(var(--main-bg-color))",
+        'background-default': "rgba(var(--muse-background-default))",
 
-        screen: "rgba(var(--primary-screen-color))",
+        'screen-default': "rgba(var(--muse-screen-default))",
 
-        primaryText: "rgba(var(--primary-text-color))",
-        secondaryText: "rgba(var(--secondary-text-color))",
+        'content-primary': "rgba(var(--muse-content-primary))",
+        'content-secondary': "rgba(var(--muse-content-secondary))",
 
-        primaryBtn: "rgba(var(--primary-button-color))",
-        hoverBtn: "rgba(var(--hover-button-color))",
+        'btn-primary': "rgba(var(--muse-button-primary))",
+        'btn-hover': "rgba(var(--muse-button-hover))",
 
-        error: "rgba(var(--error-color))",
-        link: "rgba(var(--link-color))",
-        input: "rgba(var(--input-color))",
-      }
+        'error': "rgba(var(--muse-status-error))",
+
+        'link-default': "rgba(var(--muse-action-link-default))",
+
+        'input-default': "rgba(var(--muse-input-default))",
+      },
+      fontSize: {
+        sm: "var(--font-size-sm)",
+        md: "var(--font-size-md)",
+        lg: "var(--font-size-lg)",
+        xl: "var(--font-size-xl)",
+        '2xl': "var(--font-size-2xl)",
+        '3xl': "var(--font-size-3xl)",
+        '4xl': "var(--font-size-4xl)",
+      },
+      lineHeight: {
+        sm: "calc(var(--font-size-sm) * var(--line-height-sm))",
+        md: "calc(var(--font-size-md) * var(--line-height-md))",
+        lg: "calc(var(--font-size-lg) * var(--line-height-lg))",
+        xl: "calc(var(--font-size-xl) * var(--line-height-xl))",
+        '2xl': "calc(var(--font-size-2xl) * var(--line-height-md))",
+      },
     },
   },
   plugins: [],

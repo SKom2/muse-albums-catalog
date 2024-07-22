@@ -29,7 +29,7 @@
         }
         50% {
             transform: scaleY(.1);
-            @apply bg-screen invert;
+            @apply bg-screen-default invert;
         }
         100% {
             transform: scaleY(1);

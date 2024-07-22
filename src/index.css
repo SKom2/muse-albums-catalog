@@ -1,4 +1,4 @@
-@import "assets/styles/customFonts.css";
+@import "assets/styles/custom-fonts.css";
 @import "components/Loader/loader.css";
 
 @tailwind base;
@@ -7,48 +7,77 @@
 
 
 html, body {
-    height: 100%;
     min-width: 320px;
 }
 
-#root {
-    height: 100%;
-    width: 100%;
+:root {
+    --font-montserrat: "Montserrat", 'serif';
+    --font-roboto: "Roboto", 'sans-serif';
+
+    --muse-color-transparent: transparent;
+
+    --audio-color-base-white: 255, 255, 255;
+    --audio-color-base-black: 0, 0, 0;
+
+    --audio-color-grey-100: 229, 229, 229;
+    --audio-color-grey-200: 186, 186, 186;
+    --audio-color-grey-500: 77, 77, 77;
+    --audio-color-grey-600: 50, 50, 50;
+    --audio-color-grey-700: 43, 43, 43;
+    --audio-color-grey-800: 22, 22, 22;
+    --audio-color-grey-900: 24, 24, 24;
+
+    --audio-color-red-400: 255, 51, 51;
+
+    --audio-color-blue-400: 107, 175, 195;
+    --audio-color-blue-500: 0, 75, 204;
+
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+    --font-size-4xl: 3rem;
+
+    --line-height-sm: 1.25;
+    --line-height-md: 1.5;
+    --line-height-lg: 1.75;
+    --line-height-xl: 2;
 }
 
 .dark {
-    --main-bg-color: 22, 22, 22;
+    --muse-background-default: var(--audio-color-grey-800);
 
-    --primary-screen-color: 50, 50, 50;
+    --muse-screen-default: var(--audio-color-grey-600);
 
-    --primary-text-color: 255, 255, 255;
-    --secondary-text-color: 186, 186, 186;
+    --muse-content-primary: var(--audio-color-base-white);
+    --muse-content-secondary: var(--audio-color-grey-200);
 
-    --primary-button-color: 43, 43, 43;
-    --hover-button-color: 77, 77, 77;
+    --muse-button-primary: var(--audio-color-grey-700);
+    --muse-button-hover: var(--audio-color-grey-500);
 
-    --error-color: 255, 51, 51;
-    --link-color: 107, 175, 195;
-    --input-color: 24, 24, 24;
+    --muse-status-error: var(--audio-color-red-400);
 
-    background: rgba(var(--main-bg-color));
+    --muse-action-link-default: var(--audio-color-blue-400);
+
+    --muse-input-default: var(--audio-color-grey-900);
 }
 
 .light {
-    --main-bg-color: 229, 229, 229;
+    --muse-background-default: var(--audio-color-grey-100);
 
-    --primary-screen-color: 255, 255, 255;
+    --muse-screen-default: var(--audio-color-base-white);
 
-    --primary-text-color: 0, 0, 0;
-    --secondary-text-color: 186, 186, 186;
+    --muse-content-primary: var(--audio-color-base-black);
+    --muse-content-secondary: var(--audio-color-grey-200);
 
-    --primary-button-color: 50, 50, 50;
-    --hover-button-color: 89, 89, 89;
+    --muse-button-primary: var(--audio-color-grey-600);
+    --muse-button-hover: var(--audio-color-grey-500);
 
-    --error-color: 255, 51, 51;
-    --link-color: 0, 75, 204;
-    --input-color: 255, 255, 255;
+    --muse-status-error: var(--audio-color-red-400);
 
-    background: rgba(var(--main-bg-color));
+    --muse-action-link-default: var(--audio-color-blue-500);
+
+    --muse-input-default: var(--audio-color-base-white);
 }
-
