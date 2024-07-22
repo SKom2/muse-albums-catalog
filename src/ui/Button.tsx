@@ -7,7 +7,7 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({ text, onClick }) => {
   return (
-    <button onClick={onClick} className="bg-btn-primary text-white w-full h-[46px] rounded-xl transition hover:bg-hoverBtn">
+    <button onClick={onClick} className="bg-btn-primary w-full h-[46px] rounded-xl transition hover:bg-btn-hover">
       {text}
     </button>
   );
