@@ -7,7 +7,6 @@ export const authService = {
       email: email,
       password: password
     })
-    console.log(data);
     if (error) throw error;
 
     return data

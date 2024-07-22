@@ -5,10 +5,10 @@ import useAuthStore from '@/services/zustand/auth/auth.store.ts';
 import { ThemeContextProvider } from '@/context/ThemeContext.tsx';
 
 function App() {
-  const getSession = useAuthStore(state => state.getCurrentSession)
+  const { getCurrentSession } = useAuthStore()
 
   useEffect(() => {
-    getSession();
+    getCurrentSession();
   }, []);
 
   return <Routes />;
