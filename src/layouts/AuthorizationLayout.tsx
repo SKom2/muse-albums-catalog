@@ -10,7 +10,6 @@ const AuthorizationLayout = () => {
         <Outlet />
       </section>
     </main>
-
   );
 };
 

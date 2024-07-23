@@ -29,6 +29,17 @@ export const authService = {
     return data
   },
 
+  async getUserRole (user_id: string) {
+    const { data: user_role, error } = await supabase
+      .from('user_roles')
+      .select('role_name')
+      .eq('user_id', user_id)
+      .single()
+    if (error) throw error
+
+    return user_role.role_name
+  },
+
   async signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
