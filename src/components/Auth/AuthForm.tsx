@@ -1,9 +1,9 @@
 import Button from '@/ui/Button.tsx';
 import { Link } from 'react-router-dom';
 import { FC } from 'react';
-import InputGroup from '@/containers/InputGroup.tsx';
+import InputGroup from '@/components/Auth/InputGroup.tsx';
 import Error from '@/ui/Error.tsx';
-import ConfirmationPortal from '@/components/ConfirmationModal.tsx';
+import ConfirmationPortal from '@/components/Auth/ConfirmationModal.tsx';
 import { useAuthForm } from '@/hooks/useAuthForm.ts';
 import useAuthStore from '@/services/zustand/auth/auth.store.ts';
 import { Paths } from '@/routes/routes.types.ts';

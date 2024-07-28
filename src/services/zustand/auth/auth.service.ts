@@ -22,13 +22,6 @@ export const authService = {
     return data
   },
 
-  async getCurrentSession () {
-    const { data, error } = await supabase.auth.getSession()
-    if (error) throw error;
-
-    return data
-  },
-
   async getUserRole (user_id: string) {
     const { data: user_role, error } = await supabase
       .from('user_roles')

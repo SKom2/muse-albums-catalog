@@ -22,15 +22,16 @@ const handleAuth = async (
       if (response.session.user?.id) {
         await getRole(response.session.user.id);
       }
-      return Promise.resolve();
+      return response
     } else if (response?.user) {
-      return Promise.resolve();
+      return response
     } else {
       throw new Error('Authentication failed');
     }
-  } catch (error: any) {
-    set({ errorMessage: error.message });
-    return Promise.reject(error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    set({ errorMessage: message });
+    throw error;
   } finally {
     set({ isLoading: false });
   }
@@ -62,11 +63,11 @@ const useAuthStore = create<IAuthState>()(
             const user_role = await authService.getUserRole(user_id);
             if (user_role) {
               set({ role: user_role });
-              return Promise.resolve();
+              return user_role
             }
           } catch (error: any) {
             set({ errorMessage: error.message });
-            return Promise.reject(error);
+            return error
           } finally {
             set({ isLoading: false });
           }
@@ -80,7 +81,7 @@ const useAuthStore = create<IAuthState>()(
             return Promise.resolve();
           } catch (error: any) {
             set({ errorMessage: error.message });
-            return Promise.reject(error);
+            return error
           } finally {
             set({ isLoading: false });
           }

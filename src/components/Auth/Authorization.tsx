@@ -1,9 +1,9 @@
-import AuthForm, { AuthFormProps } from '@/components/AuthForm.tsx';
+import AuthForm, { AuthFormProps } from '@/components/Auth/AuthForm.tsx';
 import { FC } from 'react';
 
 const Authorization: FC<AuthFormProps> = ({ type }) => {
   return (
-    <div className="flex justify-center max-md:items-center">
+    <div className="flex justify-center text-content-primary max-md:items-center">
       <div className="mt-36 flex flex-col gap-9 max-md:mt-0">
         <div className="max-md:text-center">
           <h2 className="heading-2 mb-2 max-lg:title-sm max-md:title max-[425px]:title-sm">Unlock premium features</h2>

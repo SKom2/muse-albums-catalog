@@ -15,7 +15,6 @@ const ConfirmationPortal: React.FC<ConfirmationPortalProps> = ({ message, onClos
     return null;
   }
 
-
   return ReactDOM.createPortal(
     <div className="fixed inset-0 flex items-center justify-center rounded bg-background-default bg-opacity-50">
       <div className="bg-screen-default p-6 rounded shadow-md">
