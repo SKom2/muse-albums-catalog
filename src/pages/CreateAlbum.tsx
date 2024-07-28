@@ -1,8 +1,10 @@
+import Main from '@/containers/Main.tsx';
+
 const CreateAlbum = () => {
   return (
-    <div>
-      Create a new album
-    </div>
+    <Main title="Create New Album">
+      <div>Create</div>
+    </Main>
   );
 };
 
