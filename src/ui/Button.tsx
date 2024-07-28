@@ -3,11 +3,22 @@ import { FC } from 'react';
 interface ButtonProps {
   text: string;
   onClick?: () => void;
+  size?: 'small' | 'medium' | 'large' | 'full';
 }
 
-const Button: FC<ButtonProps> = ({ text, onClick }) => {
+const sizeClasses = {
+  small: 'w-24 h-8',
+  medium: 'w-32 h-10',
+  large: 'w-48 h-12',
+  full: 'w-full h-12',
+};
+
+const Button: FC<ButtonProps> = ({ text, onClick, size = 'full' }) => {
   return (
-    <button onClick={onClick} className="bg-btn-primary text-content-secondary w-full h-[46px] rounded-xl transition hover:bg-btn-hover">
+    <button
+      onClick={onClick}
+      className={`bg-btn-primary text-btn-text flex items-center justify-center uppercase paragraph rounded-xl transition hover:bg-btn-hover ${sizeClasses[size]}`}
+    >
       {text}
     </button>
   );
