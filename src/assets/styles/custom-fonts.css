@@ -3,18 +3,12 @@
         @apply text-3xl font-bold leading-2xl;
     }
     .heading-2 {
-        @apply text-2xl font-bold leading-xl;
+        @apply text-2xl font-bold leading-2xl;
     }
-    .main-text {
-        @apply text-md font-normal leading-md;
+    .heading-3 {
+        @apply text-lg font-semibold leading-lg;
     }
-    .main-text-sm {
-        @apply text-sm font-normal leading-sm;
-    }
-    .subheading {
-        @apply text-lg font-normal leading-lg;
-    }
-    .caption {
-        @apply text-lg font-light leading-lg;
+    .paragraph {
+        @apply text-lg font-semibold leading-lg;
     }
 }
