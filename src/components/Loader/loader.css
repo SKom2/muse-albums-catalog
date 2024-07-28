@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply m-0 p-0 box-border bg-black;
+    }
+    .middle {
+        @apply h-10 top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2;
+    }
+    .bar {
+        @apply w-2.5 h-full bg-transparent inline-block transform origin-bottom rounded-t-md relative;
+        animation: loader 1.2s linear infinite;
+    }
+    .bar1 { animation-delay: 0.1s; }
+    .bar2 { animation-delay: 0.2s; }
+    .bar3 { animation-delay: 0.3s; }
+    .bar4 { animation-delay: 0.4s; }
+    .bar5 { animation-delay: 0.5s; }
+    .bar6 { animation-delay: 0.6s; }
+    .bar7 { animation-delay: 0.7s; }
+    .bar8 { animation-delay: 0.8s; }
+
+    @keyframes loader {
+        0% {
+            transform: scaleY(1);
+            background: transparent;
+        }
+        50% {
+            transform: scaleY(.1);
+            @apply bg-screen-default invert;
+        }
+        100% {
+            transform: scaleY(1);
+            background: transparent;
+        }
+    }
+}

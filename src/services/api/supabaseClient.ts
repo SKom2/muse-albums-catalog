@@ -1,0 +1,12 @@
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'http://localhost:3000'
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY || ''
+
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  auth: {
+    persistSession: false
+  }
+})
+
+export default supabase;
