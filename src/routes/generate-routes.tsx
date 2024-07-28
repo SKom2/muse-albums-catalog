@@ -1,13 +1,8 @@
-import flattenDeep from 'lodash/flattenDeep';
 import { Navigate, Route, Routes as ReactRoutes } from 'react-router-dom';
 import ProtectedRoute from '@/routes/ProtectedRoute.tsx';
-import { IMainRoute, IRouteBase } from '@/routes/routes.types.ts';
+import { IMainRoute, Paths } from '@/routes/routes.types.ts';
 import { useMemo } from 'react';
-
-const generateFlattenRoutes = (routes: IRouteBase[] | undefined): IRouteBase[]  => {
-  if (!routes) return [];
-  return flattenDeep(routes.map(({ routes: subRoutes, ...rest }) => [rest, generateFlattenRoutes(subRoutes)]));
-}
+import { generateFlattenRoutes } from '@/routes/routes.helpers.ts';
 
 export const renderRoutes = (mainRoutes: IMainRoute[]) => {
 
@@ -18,14 +13,13 @@ export const renderRoutes = (mainRoutes: IMainRoute[]) => {
 
         return (
           <Route key={index} element={<Layout />}>
-            {subRoutes.map(({ component: Component, path, name, isPublic, accessRole }) => {
+            {subRoutes.map(({ component: Component, path, name, pageAccessRole }) => {
               return (
                 <Route
                   key={name}
                   element={
                     <ProtectedRoute
-                      isPublic={isPublic ?? false}
-                      accessRole={accessRole}
+                      pageAccessRole={pageAccessRole}
                     />
                   }
                 >
@@ -42,8 +36,8 @@ export const renderRoutes = (mainRoutes: IMainRoute[]) => {
 
     return (
       <ReactRoutes>
-        <Route path="/" element={<Navigate to="/albums" />} />
-        <Route path="*" element={<Navigate to="/404" />} />
+        <Route path="/" element={<Navigate to={Paths.ALBUMS} />} />
+        <Route path="*" element={<Navigate to={Paths.NOT_FOUND} />} />
         {layouts}
       </ReactRoutes>
     );

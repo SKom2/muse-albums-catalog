@@ -1,5 +1,6 @@
 import { renderRoutes } from '@/routes/generate-routes.tsx';
-import { IMainRoute, Paths, Roles } from '@/routes/routes.types.ts';
+import { IMainRoute, Paths } from '@/routes/routes.types.ts';
+import { Roles } from '@/services/zustand/auth/auth.types.ts';
 
 // Layouts
 import AuthorizationLayout from '@/layouts/AuthorizationLayout.tsx';
@@ -8,8 +9,8 @@ import MainLayout from '@/layouts/MainLayout.tsx';
 // Pages
 import Login from '@/pages/Login.tsx';
 import Register from '@/pages/Register.tsx';
-import AlbumCatalog from '@/pages/AlbumCatalog.tsx';
-import AlbumDetails from '@/pages/AlbumDetails.tsx';
+import Catalogue from '@/pages/Catalogue.tsx';
+import Album from '@/pages/Album.tsx';
 import CreateAlbum from '@/pages/CreateAlbum.tsx';
 import EditAlbum from '@/pages/EditAlbum.tsx';
 import Favorites from '@/pages/Favorites.tsx';
@@ -25,21 +26,18 @@ export const routes: IMainRoute[] = [
         title: 'Login page',
         component: Login,
         path: Paths.LOGIN,
-        isPublic: true,
       },
       {
         name: 'register',
         title: 'Register page',
         component: Register,
         path: Paths.REGISTER,
-        isPublic: true,
       },
       {
         name: '404',
         title: 'Not found page',
         component: NotFound,
         path: Paths.NOT_FOUND,
-        isPublic: true,
       }
     ]
   },
@@ -48,39 +46,40 @@ export const routes: IMainRoute[] = [
     routes: [
         {
           name: 'albums-catalog',
-          title: 'AlbumDetails catalog',
-          component: AlbumCatalog,
+          title: 'Catalogue',
+          component: Catalogue,
           path: Paths.ALBUMS,
-          isPublic: true,
-        },
-        {
-          name: 'album-details',
-          title: 'AlbumDetails details',
-          component: AlbumDetails,
-          path: Paths.ALBUM_DETAILS,
-          isPublic: true,
-        },
-        {
-          name: 'create-album',
-          title: 'Add album',
-          component: CreateAlbum,
-          path: Paths.CREATE_ALBUM,
-          accessRole: Roles.ADMIN
-        },
-        {
-          name: 'edit-album',
-          title: 'Edit album',
-          component: EditAlbum,
-          path: Paths.EDIT_ALBUM,
-          accessRole: Roles.ADMIN
+          hasSideLink: true
         },
         {
           name: 'favorite-albums',
           title: 'Favorite albums',
           component: Favorites,
           path: Paths.FAVORITE_ALBUMS,
-          accessRole: Roles.VISITOR
-        }
+          pageAccessRole: [Roles.VISITOR, Roles.ADMIN],
+          hasSideLink: true
+        },
+        {
+          name: 'album-details',
+          title: 'Album details',
+          component: Album,
+          path: Paths.ALBUM_DETAILS,
+        },
+        {
+          name: 'create-album',
+          title: 'Create album',
+          component: CreateAlbum,
+          path: Paths.CREATE_ALBUM,
+          pageAccessRole: Roles.ADMIN,
+          hasSideLink: true
+        },
+        {
+          name: 'edit-album',
+          title: 'Edit album',
+          component: EditAlbum,
+          path: Paths.EDIT_ALBUM,
+          pageAccessRole: Roles.ADMIN,
+        },
     ]
   }
 ];
