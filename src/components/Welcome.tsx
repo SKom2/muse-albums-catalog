@@ -6,7 +6,7 @@ const Welcome = () => {
       <div className="flex gap-2 flex-col justify-center items-center">
         <h1 className="heading">Find your groove</h1>
         <p className="subheading">Explore albums for every vibe</p>
-        <img src={WelcomeImage} alt="Welcome Image" />
+        <img src={WelcomeImage} alt="Welcome Image" className="w-1/2"/>
         <p className="caption">Listen to albums on the go!</p>
       </div>
     </div>

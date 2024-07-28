@@ -7,12 +7,12 @@ interface MainProps {
 
 const Main: FC<MainProps> = ({ children, title }) => {
   return (
-    <main className="relative mt-24">
-      <div className="flex flex-col gap-10 w-[80%] m-auto h-full ">
+    <main className="relative mt-20">
+      <div className="flex flex-col gap-10 w-[85%] m-auto h-full">
         <section>
           <h1 className="heading">{title}</h1>
         </section>
-        <section className="w-full border-[2.5px] border-dashed border-screen-default"></section>
+        <section className="w-full border-[2.5px] border-dashed border-content-secondary"></section>
         {children}
       </div>
     </main>

@@ -5,7 +5,7 @@ const AuthorizationLayout = () => {
   return (
     <main className="py-20 min-h-screen flex flex-col">
       <section
-        className="flex-1 px-10 grid grid-cols-[1.5fr_1fr] gap-10 max-lg:px-5 max-lg:gap-4 max-md:grid-cols-none">
+        className="flex-1 px-20 grid grid-cols-[1fr_1fr] gap-5 max-lg:px-5 max-lg:gap-4 max-md:grid-cols-none">
         <Welcome />
         <Outlet />
       </section>

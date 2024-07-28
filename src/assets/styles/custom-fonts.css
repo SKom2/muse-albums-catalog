@@ -8,7 +8,13 @@
     .heading-3 {
         @apply text-lg font-semibold leading-lg;
     }
+    .caption {
+        @apply text-lg font-bold leading-lg;
+    }
     .paragraph {
-        @apply text-lg font-semibold leading-lg;
+        @apply text-lg font-normal leading-lg;
+    }
+    .medium {
+        @apply text-md font-normal leading-md;
     }
 }

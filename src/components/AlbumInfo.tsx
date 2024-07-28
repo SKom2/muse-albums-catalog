@@ -5,15 +5,15 @@ import Loader from '@/components/Loader/Loader.tsx';
 
 const AlbumInfo = () => {
   const { albumId } = useParams()
-  const { getAlbum } = useAlbumsStore()
-  const { selectedAlbum } = useAlbumsStore()
-  const { isLoading } = useAlbumsStore()
-
+  const getAlbum = useAlbumsStore(state => state.getAlbum)
+  const selectedAlbum = useAlbumsStore(state => state.selectedAlbum)
+  const isLoading = useAlbumsStore(state => state.isLoading)
 
   useEffect(() => {
-    if (albumId) getAlbum(albumId)
-  }, [])
-
+    if (albumId)
+      getAlbum(albumId)
+        .catch(console.error)
+  }, [getAlbum, albumId])
 
   if (isLoading) {
     return <Loader />;

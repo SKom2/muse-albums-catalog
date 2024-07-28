@@ -67,9 +67,9 @@ html, body {
 }
 
 .light {
-    --muse-background-default: var(--audio-color-base-white);
+    --muse-background-default: var(--audio-color-grey-100);
 
-    --muse-screen-default: var(--audio-color-grey-100);
+    --muse-screen-default: var(--audio-color-base-white);
 
     --muse-content-primary: var(--audio-color-base-black);
     --muse-content-secondary: var(--audio-color-grey-200);

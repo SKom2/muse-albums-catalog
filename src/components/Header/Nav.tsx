@@ -24,7 +24,7 @@ const Nav = () => {
           to={route.path as string}
           end
           className={({ isActive }) =>
-            `w-fit paragraph uppercase inline-flex items-center justify-center transition ${
+            `w-fit caption uppercase inline-flex items-center justify-center transition ${
               isActive ? 'font-bold text-content-primary' : 'text-content-secondary'
             }`
           }

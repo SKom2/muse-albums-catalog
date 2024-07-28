@@ -11,7 +11,6 @@ const useGetAlbums = () => {
 
   useEffect(() => {
     getAlbums()
-      .then(console.log)
       .catch(console.error);
   }, [getAlbums]);
 

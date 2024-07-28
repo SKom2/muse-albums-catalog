@@ -1,5 +1,5 @@
 import Main from '@/containers/Main.tsx';
-import AlbumInfo from '@/components/AlbumInfo.tsx';
+import AlbumInfo from '@/components/Album/AlbumInfo.tsx';
 
 const Album = () => {
   return (
