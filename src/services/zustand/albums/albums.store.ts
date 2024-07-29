@@ -53,13 +53,13 @@ const useAlbumsStore = create<IAlbumsState>()(
       },
 
       nextPage: async () => {
+        set({ isLoading: true, message: '', page: get().page + 1});
         try {
-          set({ isLoading: true, message: '', page: get().page + 1});
           const response = await albumsService.getAlbums(get().page);
 
           if (response) {
             const updatedAlbums = [...get().albums || [], ...response.albums];
-            set({ albums: updatedAlbums, amountOfAlbums: response.count });
+            set({ albums: updatedAlbums });
             return response;
           }
         } catch (error: unknown) {
@@ -70,6 +70,24 @@ const useAlbumsStore = create<IAlbumsState>()(
           set({ isLoading: false });
         }
       },
+
+      searchAlbums: async (text: string) => {
+        set({ isLoading: true, message: '', page: INITIAL_PAGE });
+        try {
+          const response = await albumsService.getAlbums(INITIAL_PAGE, text)
+
+          if (response) {
+            set({ albums: response.albums, amountOfAlbums: response.count });
+            return response
+          }
+        } catch (error: unknown) {
+          const message = error instanceof Error ? error.message : 'Unknown error';
+          set({ message });
+          throw error;
+        } finally {
+          set({ isLoading: false });
+        }
+      }
     })
   )
 )

@@ -21,7 +21,7 @@ const Albums = () => {
     <section className="flex flex-col w-full items-center gap-10 pb-10">
       {!albums || albums.length === 0 ? (
         <p className="text-center heading-2 text-content-primary mt-10">
-          No albums available
+          No albums found
         </p>
       ) : (
         <>

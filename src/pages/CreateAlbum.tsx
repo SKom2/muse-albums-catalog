@@ -1,11 +1,5 @@
-import Main from '@/containers/Main.tsx';
-
 const CreateAlbum = () => {
-  return (
-    <Main title="Create New Album">
-      <div>Create</div>
-    </Main>
-  );
+  return <div>Create</div>
 };
 
 export default CreateAlbum;

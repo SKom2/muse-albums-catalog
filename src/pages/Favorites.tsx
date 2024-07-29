@@ -1,11 +1,5 @@
-import Main from '@/containers/Main.tsx';
-
 const Favorites = () => {
-  return (
-    <Main title="Favorite Albums">
-      <div>Favorites</div>
-    </Main>
-  )
+  return <div>Favorites</div>
 };
 
 export default Favorites;

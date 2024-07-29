@@ -4,6 +4,7 @@ interface ButtonProps {
   text: string;
   onClick?: () => void;
   size?: 'small' | 'medium' | 'large' | 'full';
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const sizeClasses = {
@@ -13,9 +14,10 @@ const sizeClasses = {
   full: 'w-full h-12',
 };
 
-const Button: FC<ButtonProps> = ({ text, onClick, size = 'full' }) => {
+const Button: FC<ButtonProps> = ({ type = 'button', text, onClick, size = 'full' }) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       className={`bg-btn-primary text-btn-text flex items-center justify-center uppercase paragraph rounded-xl transition hover:bg-btn-hover ${sizeClasses[size]}`}
     >

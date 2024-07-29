@@ -67,7 +67,7 @@ export const routes: IMainRoute[] = [
         },
         {
           name: 'create-album',
-          title: 'Create album',
+          title: 'Create New album',
           component: CreateAlbum,
           path: Paths.CREATE_ALBUM,
           pageAccessRole: Roles.ADMIN,
@@ -84,4 +84,4 @@ export const routes: IMainRoute[] = [
   }
 ];
 
-export const Routes = renderRoutes(routes);
+export const Routes = renderRoutes();

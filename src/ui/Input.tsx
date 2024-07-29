@@ -9,7 +9,7 @@ interface InputProps {
   required?: boolean;
 }
 
-const Input: FC<InputProps> = ({  name, autoComplete, register, type = "text", placeholder, required = true }) => {
+const Input: FC<InputProps> = ({  name, autoComplete, register, type = "text", placeholder, required = true}) => {
   return (
     <input
       name={name}

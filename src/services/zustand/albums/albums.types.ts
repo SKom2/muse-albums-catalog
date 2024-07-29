@@ -9,6 +9,7 @@ export interface IAlbumsState {
   getAlbums: () => Promise<void>
   getAlbum: (album_id: string) => Promise<void>
   nextPage: () => Promise<void>;
+  searchAlbums: (text: string) => Promise<void>;
 }
 
 export interface IAlbum {

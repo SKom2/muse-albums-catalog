@@ -19,8 +19,8 @@ export enum Paths {
 export interface IRoute {
   name: string;
   title: string;
-  component?: ComponentType;
-  path?: string;
+  component: ComponentType;
+  path: string;
   routes?: IRoute[];
   pageAccessRole?: PageAccessRoleType;
   hasSideLink?: boolean;

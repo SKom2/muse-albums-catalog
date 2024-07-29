@@ -5,7 +5,6 @@ import InputGroup from '@/components/Auth/InputGroup.tsx';
 import Error from '@/ui/Error.tsx';
 import ConfirmationPortal from '@/components/Auth/ConfirmationModal.tsx';
 import { useAuthForm } from '@/hooks/useAuthForm.ts';
-import useAuthStore from '@/services/zustand/auth/auth.store.ts';
 import { Paths } from '@/routes/routes.types.ts';
 
 export interface AuthFormProps {
@@ -18,9 +17,9 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
     handleSubmit,
     isPortalOpen,
     closePortal,
-    isLogin
+    isLogin,
+    isLoading
   } = useAuthForm(type);
-  const isLoading= useAuthStore(state => state.isLoading)
 
   const buttonText = isLoading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up';
   const linkText = isLogin ? 'sign up' : 'log in';
@@ -31,7 +30,7 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
       <form className="gap-6 flex flex-col items-stretch" autoComplete="off" onSubmit={handleSubmit}>
         <InputGroup register={register} />
         <Error />
-        <Button text={buttonText} />
+        <Button type="submit" text={buttonText} />
         <p className="self-center main-text">
           or <Link className="text-link-default" to={linkPath}>{linkText}</Link>
         </p>

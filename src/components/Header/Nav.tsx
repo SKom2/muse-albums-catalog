@@ -2,13 +2,16 @@ import { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getAccessibleRoutes } from '@/routes/routes.helpers.ts';
 import useAuthStore from '@/services/zustand/auth/auth.store.ts';
-import { routes } from '@/routes/routes.data.ts';
 import Loader from '@/components/Loader/Loader.tsx';
+import { useRoutesContext } from '@/context/RoutesContext.tsx';
 
 const Nav = () => {
-  const mainRoutes = routes.flatMap(route => route.routes);
+  const { routes } = useRoutesContext();
   const role = useAuthStore(state => state.role);
-  const routesHaveLink = useMemo(() => getAccessibleRoutes(mainRoutes, role), [mainRoutes, role]);
+
+  const routesHaveLink = useMemo(() => {
+    return getAccessibleRoutes(routes, role)
+  }, [routes, role]);
 
   const isLoading = useAuthStore(state => state.isLoading)
 

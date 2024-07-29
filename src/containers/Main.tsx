@@ -1,17 +1,15 @@
 import React, { FC } from 'react';
+import MainHeading from '@/components/MainHeading.tsx';
 
 interface MainProps {
   children: React.ReactNode;
-  title: string;
 }
 
-const Main: FC<MainProps> = ({ children, title }) => {
+const Main: FC<MainProps> = ({ children }) => {
   return (
     <main className="relative mt-20">
       <div className="flex flex-col gap-10 w-[85%] m-auto h-full">
-        <section>
-          <h1 className="heading">{title}</h1>
-        </section>
+        <MainHeading />
         <section className="w-full border-[2.5px] border-dashed border-content-secondary"></section>
         {children}
       </div>
