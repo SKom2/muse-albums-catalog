@@ -6,10 +6,9 @@ export interface IAlbumsState {
   isLoading: boolean,
   message: string,
 
-  getAlbums: () => Promise<void>
   getAlbum: (album_id: string) => Promise<void>
-  nextPage: () => Promise<void>;
-  searchAlbums: (text: string) => Promise<void>;
+
+  fetchAlbums: (searchText?: string, genre?: string, format?: string, resetAlbums?: boolean) => Promise<void>;
 }
 
 export interface IAlbum {

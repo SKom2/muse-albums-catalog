@@ -1,95 +1,70 @@
 import { create } from 'zustand';
 import { IAlbumsState } from '@/services/zustand/albums/albums.types.ts';
-import { devtools } from 'zustand/middleware';
 import { albumsService } from '@/services/zustand/albums/albums.service.ts';
+import {createJSONStorage, persist} from "zustand/middleware";
 
 export const INITIAL_PAGE = 0
 
 const useAlbumsStore = create<IAlbumsState>()(
-  devtools(
-    (set, get) => ({
-      albums: null,
-      selectedAlbum: null,
-      amountOfAlbums: null,
-      page: INITIAL_PAGE,
-      isLoading: false,
-      message: '',
+    persist(
+        (set, get) => ({
+            albums: null,
+            selectedAlbum: null,
+            amountOfAlbums: null,
+            page: INITIAL_PAGE,
+            isLoading: false,
+            message: '',
 
-      getAlbums: async () => {
-        set({ isLoading: true, message: '', page: INITIAL_PAGE});
-        try {
-          const response = await albumsService.getAlbums(INITIAL_PAGE);
+            fetchAlbums: async (searchText = '', genre = '', format = '', nextPage = false) => {
+                set({ isLoading: true, message: '', page: nextPage ? get().page + 1 : INITIAL_PAGE});
+                try {
+                    const response = await albumsService.getAlbums(get().page, searchText, genre, format);
 
-          if (response) {
-            set({ albums: response.albums, amountOfAlbums: response.count });
-            return response
-          }
-        } catch (error: unknown) {
-          const message = error instanceof Error ? error.message : 'Unknown error';
-          set({ message });
-          throw error;
-        } finally {
-          set({ isLoading: false });
-        }
-      },
+                    if (response) {
+                        const updatedAlbums = nextPage
+                            ? [...(get().albums || []), ...response.albums]
+                            : response.albums
 
-      getAlbum: async (album_id: string) => {
-        set({ isLoading: true, message: '' });
-        try {
-          const response = await albumsService.getAlbum(album_id);
+                        set({
+                            albums: updatedAlbums,
+                            amountOfAlbums: response.count,
+                        });
 
-          if (response) {
-            set({ selectedAlbum: response })
-            return response
-          }
-        }
-        catch (error: unknown) {
-          const message = error instanceof Error ? error.message : 'Unknown error';
-          set({ message });
-          throw error;
-        } finally {
-          set({ isLoading: false });
-        }
-      },
+                        return response;
+                    }
+                } catch (error: unknown) {
+                    const message = error instanceof Error ? error.message : 'Unknown error';
+                    set({ message });
+                    throw error;
+                } finally {
+                    set({ isLoading: false });
+                }
+            },
 
-      nextPage: async () => {
-        set({ isLoading: true, message: '', page: get().page + 1});
-        try {
-          const response = await albumsService.getAlbums(get().page);
+            getAlbum: async (album_id: string) => {
+                set({ isLoading: true, message: '' });
+                try {
+                  const response = await albumsService.getAlbum(album_id);
 
-          if (response) {
-            const updatedAlbums = [...get().albums || [], ...response.albums];
-            set({ albums: updatedAlbums });
-            return response;
-          }
-        } catch (error: unknown) {
-          const message = error instanceof Error ? error.message : 'Unknown error';
-          set({ message });
-          throw error;
-        } finally {
-          set({ isLoading: false });
-        }
-      },
-
-      searchAlbums: async (text: string) => {
-        set({ isLoading: true, message: '', page: INITIAL_PAGE });
-        try {
-          const response = await albumsService.getAlbums(INITIAL_PAGE, text)
-
-          if (response) {
-            set({ albums: response.albums, amountOfAlbums: response.count });
-            return response
-          }
-        } catch (error: unknown) {
-          const message = error instanceof Error ? error.message : 'Unknown error';
-          set({ message });
-          throw error;
-        } finally {
-          set({ isLoading: false });
-        }
-      }
-    })
-  )
+                  if (response) {
+                    set({ selectedAlbum: response })
+                    return response
+                  }
+                }
+                catch (error: unknown) {
+                  const message = error instanceof Error ? error.message : 'Unknown error';
+                  set({ message });
+                  throw error;
+                } finally {
+                  set({ isLoading: false });
+                }
+            },
+        }),
+        {
+            name: 'albums-storage',
+            storage: createJSONStorage(() => localStorage),
+        },
+    )
 )
 
 export default useAlbumsStore;

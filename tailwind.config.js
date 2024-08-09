@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'albums-grid-cols': 'repeat(auto-fill, minmax(300px, 1fr))',
+        'albums-grid-cols': 'repeat(auto-fill, minmax(250px, 1fr))',
         'album-page-columns': 'minmax(250px, 400px) 1fr',
       },
       fontFamily: {

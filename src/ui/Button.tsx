@@ -19,7 +19,7 @@ const Button: FC<ButtonProps> = ({ type = 'button', text, onClick, size = 'full'
     <button
       type={type}
       onClick={onClick}
-      className={`bg-btn-primary text-btn-text flex items-center justify-center uppercase paragraph rounded-xl transition hover:bg-btn-hover ${sizeClasses[size]}`}
+      className={`bg-btn-primary text-btn-text flex items-center justify-center paragraph rounded transition hover:bg-btn-hover ${sizeClasses[size]}`}
     >
       {text}
     </button>

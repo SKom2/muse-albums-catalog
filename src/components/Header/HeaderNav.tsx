@@ -5,7 +5,7 @@ import useAuthStore from '@/services/zustand/auth/auth.store.ts';
 import Loader from '@/components/Loader/Loader.tsx';
 import { useRoutesContext } from '@/context/RoutesContext.tsx';
 
-const Nav = () => {
+const HeaderNav = () => {
   const { routes } = useRoutesContext();
   const role = useAuthStore(state => state.role);
 
@@ -39,4 +39,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default HeaderNav;

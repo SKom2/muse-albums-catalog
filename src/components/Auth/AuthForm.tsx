@@ -1,9 +1,9 @@
 import Button from '@/ui/Button.tsx';
 import { Link } from 'react-router-dom';
 import { FC } from 'react';
-import InputGroup from '@/components/Auth/InputGroup.tsx';
+import AuthInputGroup from '@/components/Auth/AuthInputGroup.tsx';
 import Error from '@/ui/Error.tsx';
-import ConfirmationPortal from '@/components/Auth/ConfirmationModal.tsx';
+import ConfirmationPortal from '@/components/Auth/AuthConfirmationModal.tsx';
 import { useAuthForm } from '@/hooks/useAuthForm.ts';
 import { Paths } from '@/routes/routes.types.ts';
 
@@ -28,7 +28,7 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
   return (
     <>
       <form className="gap-6 flex flex-col items-stretch" autoComplete="off" onSubmit={handleSubmit}>
-        <InputGroup register={register} />
+        <AuthInputGroup register={register} />
         <Error />
         <Button type="submit" text={buttonText} />
         <p className="self-center main-text">

@@ -10,7 +10,10 @@ const Albums = () => {
     nextPage,
     isLoading,
     albums,
-    amountOfAlbums
+    amountOfAlbums,
+    format,
+    genre,
+    searchText
   } = useGetAlbums()
 
   if (page === INITIAL_PAGE && isLoading) {
@@ -30,7 +33,7 @@ const Albums = () => {
             <Button
               text={isLoading ? "Loading..." : "Load more"}
               size="large"
-              onClick={nextPage}
+              onClick={() => nextPage(searchText, genre, format, true)}
             />
           )}
         </>

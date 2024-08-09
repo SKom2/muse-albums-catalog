@@ -1,8 +1,9 @@
 import supabase from '@/services/api/supabaseClient.ts';
 import { getRange } from '@/services/zustand/albums/albums.helpers.ts';
+import {INITIAL_PAGE} from "@/services/zustand/albums/albums.store.ts";
 
 export const albumsService = {
-  async getAlbums(page: number, search: string = ''): Promise<any> {
+  async getAlbums(page: number = INITIAL_PAGE, input: string = '', genre: string = '', format: string = ''): Promise<any> {
     const { from, to } = getRange(page)
     let query = supabase
       .from('albums')
@@ -10,9 +11,21 @@ export const albumsService = {
       .order('id', { ascending: true })
       .range(from, to)
 
-    if (search) {
+    if (genre) {
+      query = query.eq(
+          'genre_name', genre
+      )
+    }
+
+    if (format) {
+      query = query.eq(
+          'format_name', format
+      )
+    }
+
+    if (input) {
       query = query.or(
-        `name.ilike.%${search}%`
+        `name.ilike.%${input}%`
       )
     }
 
@@ -36,5 +49,6 @@ export const albumsService = {
     if (error) throw error;
 
     return album
-  }
+  },
+
 }

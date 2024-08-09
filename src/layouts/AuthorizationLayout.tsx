@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import Welcome from '@/components/Welcome.tsx';
+import Welcome from '@/components/Welcome/Welcome.tsx';
 
 const AuthorizationLayout = () => {
   return (

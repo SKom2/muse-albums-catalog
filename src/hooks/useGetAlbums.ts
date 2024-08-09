@@ -1,18 +1,22 @@
 import useAlbumsStore from '@/services/zustand/albums/albums.store.ts';
 import { useEffect } from 'react';
+import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
 
 const useGetAlbums = () => {
-  const nextPage = useAlbumsStore(state => state.nextPage)
+  const nextPage = useAlbumsStore(state => state.fetchAlbums)
   const albums = useAlbumsStore(state => state.albums)
   const amountOfAlbums = useAlbumsStore(state => state.amountOfAlbums)
   const isLoading = useAlbumsStore(state => state.isLoading)
   const page = useAlbumsStore(state => state.page)
-  const getAlbums = useAlbumsStore(state => state.getAlbums)
+  const fetchAlbums = useAlbumsStore(state => state.fetchAlbums)
+  const genre = useFiltersStore(state => state.selectedGenre)
+  const format = useFiltersStore(state => state.selectedFormat)
+  const searchText = useFiltersStore(state => state.searchText)
 
   useEffect(() => {
-    getAlbums()
-      .catch(console.error);
-  }, [getAlbums]);
+    fetchAlbums(searchText, genre, format)
+        .catch(console.error);
+  }, [fetchAlbums, genre, format]);
 
   return {
     nextPage,
@@ -20,6 +24,9 @@ const useGetAlbums = () => {
     amountOfAlbums,
     isLoading,
     page,
+    genre,
+    format,
+    searchText
   }
 }
 

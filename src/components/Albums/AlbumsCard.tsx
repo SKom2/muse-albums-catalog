@@ -2,7 +2,7 @@ import { IAlbum } from '@/services/zustand/albums/albums.types.ts';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from '@/routes/routes.types.ts';
 
-const AlbumCard = ({ album }: { album: IAlbum }) => {
+const AlbumsCard = ({ album }: { album: IAlbum }) => {
   const navigate = useNavigate()
   const year = new Date(album.date_of_issue).getFullYear();
 
@@ -19,4 +19,4 @@ const AlbumCard = ({ album }: { album: IAlbum }) => {
   );
 };
 
-export default AlbumCard;
+export default AlbumsCard;

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import MainHeading from '@/components/MainHeading.tsx';
+import MainHeading from '@/components/MainHeading/MainHeading.tsx';
 
 interface MainProps {
   children: React.ReactNode;

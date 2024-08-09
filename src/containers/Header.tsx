@@ -1,5 +1,5 @@
 import HeaderSection from '@/components/Header/HeaderSection.tsx';
-import Nav from '@/components/Header/Nav.tsx';
+import HeaderNav from '@/components/Header/HeaderNav.tsx';
 import HeaderButtonGroup from '@/components/Header/HeaderButtonGroup.tsx';
 import Logo from '@/assets/icons/Logo.tsx';
 import useThemeStore from '@/services/zustand/theme/theme.store.ts';
@@ -12,7 +12,7 @@ const Header = () => {
       <HeaderSection alignment="start">
           <Logo color={theme === 'dark' ? 'white' : 'black'} />
       </HeaderSection>
-      <Nav />
+      <HeaderNav />
       <HeaderSection alignment="end">
         <HeaderButtonGroup />
       </HeaderSection>
