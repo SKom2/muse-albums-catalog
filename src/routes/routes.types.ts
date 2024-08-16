@@ -13,7 +13,7 @@ export enum Paths {
   CREATE_ALBUM = `${ALBUMS}/new`,
   FAVORITE_ALBUMS = `${ALBUMS}/favorites`,
   ALBUM_DETAILS = `${ALBUMS}/:albumId`,
-  EDIT_ALBUM = `${ALBUM_DETAILS}/edit`,
+  EDIT_ALBUM = `${ALBUMS}/:albumId/edit`,
 }
 
 export interface IRoute {

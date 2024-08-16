@@ -1,7 +1,7 @@
-import AlbumInfo from '@/components/Album/AlbumInfo.tsx';
+import AlbumContainer from '@/components/Album/AlbumContainer.tsx';
 
 const Album = () => {
-  return <AlbumInfo />
+  return <AlbumContainer />
 };
 
 export default Album;

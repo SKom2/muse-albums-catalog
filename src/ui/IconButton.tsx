@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react';
+import {FC, ReactNode} from 'react';
 
 interface IconButtonProps {
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   children: ReactNode;
   size?: 'small' | 'medium' | 'large';
   type?: 'submit' | 'reset' | 'button';

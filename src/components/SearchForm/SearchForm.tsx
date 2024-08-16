@@ -8,9 +8,10 @@ import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
 import {useEffect} from "react";
 
 const SearchForm = () => {
-    const { register, handleSubmit, watch} = useForm()
+    const { register, handleSubmit, watch, setValue} = useForm()
     const searchAlbums = useAlbumsStore(state => state.fetchAlbums)
     const setSearchText = useFiltersStore(state => state.setSearchText);
+    const searchText = useFiltersStore(state => state.searchText);
 
     const handleSearchSubmit: SubmitHandler<FieldValues>  = async (value) => {
         const selectedGenre = useFiltersStore.getState().selectedGenre
@@ -23,15 +24,21 @@ const SearchForm = () => {
         }
     };
 
-    const debouncedSearch = debounce(handleSearchSubmit, 500)
+    const debouncedSearch = debounce((value) => {
+        handleSearchSubmit(value);
+        setSearchText(value.search);
+    }, 500)
 
     useEffect(() => {
+        setValue("search", searchText)
         const subscription = watch((value) => {
             debouncedSearch(value);
-            setSearchText(value.search)
         });
-        return () => subscription.unsubscribe();
-    }, [watch, debouncedSearch]);
+
+        return () => {
+            subscription.unsubscribe();
+        }
+    }, [watch]);
 
     return (
         <form className="flex gap-2 w-1/6 items-center" onSubmit={handleSubmit(handleSearchSubmit)}>

@@ -49,7 +49,11 @@ const MainHeading = () => {
             )
         }
       </div>
-      <Filters isFiltersVisible={isFiltersVisible} setIsFiltersVisible={setIsFiltersVisible}  />
+      {
+        isSearchFormExist && (
+          <Filters isFiltersVisible={isFiltersVisible} setIsFiltersVisible={setIsFiltersVisible}  />
+        )
+      }
     </section>
   );
 };

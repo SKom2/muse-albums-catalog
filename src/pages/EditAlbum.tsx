@@ -1,9 +1,7 @@
+import AlbumContainer from "@/components/Album/AlbumContainer.tsx";
+
 const EditAlbum = () => {
-  return (
-    <div>
-      Edit Album
-    </div>
-  );
+  return <AlbumContainer mode="edit"/>
 };
 
 export default EditAlbum;

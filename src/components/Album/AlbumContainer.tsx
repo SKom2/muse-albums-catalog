@@ -1,0 +1,57 @@
+import AlbumMeta from '@/components/Album/AlbumMeta.tsx';
+import AlbumDetails from '@/components/Album/AlbumDetails.tsx';
+import AlbumCover from '@/components/Album/AlbumCover.tsx';
+import AlbumInfoColumn from '@/components/Album/AlbumInfoColumn.tsx';
+import { FC, useEffect } from 'react';
+import useAlbumsStore from "@/services/zustand/albums/albums.store.ts";
+import { useParams } from "react-router-dom";
+import AlbumView from "@/components/Album/AlbumView.tsx";
+import {useAlbumEditor} from "@/hooks/useAlbumEditor.tsx";
+
+export type IMode = "edit" | "create" | undefined
+
+const AlbumContainer: FC<{ mode?: IMode }> = ({ mode }) => {
+    const { albumId } = useParams();
+
+    const getAlbum = useAlbumsStore(state => state.getAlbum);
+
+    const {
+        handleFileSelect,
+        handleFieldsOnChange,
+        handleSubmit,
+        register
+    } = useAlbumEditor({ mode });
+
+    useEffect(() => {
+        if (albumId) {
+            getAlbum(albumId).catch(console.error);
+        }
+    }, [getAlbum, albumId]);
+
+    return (
+        <section className="pb-10">
+            <AlbumView mode={mode} handleSubmit={handleSubmit}>
+                <AlbumInfoColumn>
+                    <AlbumCover
+                        mode={mode}
+                        handleFileSelect={handleFileSelect}
+                    />
+                    <AlbumMeta
+                        mode={mode}
+                        register={register}
+                        handleFieldsOnChange={handleFieldsOnChange}
+                    />
+                </AlbumInfoColumn>
+                <AlbumInfoColumn>
+                    <AlbumDetails
+                        mode={mode}
+                        register={register}
+                    />
+                    <div className="bg-screen-default rounded-xl shadow h-full w-full p-4 paragraph"></div>
+                </AlbumInfoColumn>
+            </AlbumView>
+        </section>
+    );
+};
+
+export default AlbumContainer;

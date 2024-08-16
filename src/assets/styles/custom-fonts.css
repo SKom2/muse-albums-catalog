@@ -9,7 +9,7 @@
         @apply text-lg font-semibold leading-lg;
     }
     .caption {
-        @apply text-lg font-bold leading-lg;
+        @apply text-md font-bold leading-md;
     }
     .paragraph {
         @apply text-lg font-normal leading-lg;

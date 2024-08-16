@@ -1,5 +1,7 @@
+import AlbumContainer from "@/components/Album/AlbumContainer.tsx";
+
 const CreateAlbum = () => {
-  return <div>Create</div>
+  return <AlbumContainer mode="create" />
 };
 
 export default CreateAlbum;
