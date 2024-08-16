@@ -7,14 +7,16 @@ const Select: FC<{
     placeholder?: string;
     label?: string,
     children: ReactNode | ReactNode[];
-    selectedOption: string,
+    selectedOption?: string,
     setSelectedOption: (value: string) => void,
+    color?: string
 }> = ({
     children,
     label,
     placeholder,
     selectedOption,
-    setSelectedOption
+    setSelectedOption,
+    color = "bg-background-default"
 }) => {
     const [isDropDownShown, setIsDropDownShown] = useState(false);
     const selectContainerRef = useRef(null);
@@ -29,11 +31,11 @@ const Select: FC<{
     };
 
     return (
-        <SelectContext.Provider value={{ selectedOption, changeSelectedOption: handleClickOnOption }}>
-            <div className="flex flex-col gap-2 w-40 relative" ref={selectContainerRef}>
+        <SelectContext.Provider value={{ selectedOption: selectedOption ? selectedOption : '', changeSelectedOption: handleClickOnOption }}>
+            <div className="flex flex-col gap-2 w-full min-w-48 relative" ref={selectContainerRef}>
                 <p className="caption">{label}</p>
                 <div
-                    className={`flex w-full justify-between items-center px-2 bg-screen-default shadow rounded h-10 medium cursor-pointer ${selectedOption ? "text-content-primary" : "text-content-secondary"}`}
+                    className={`flex w-full justify-between items-center px-3 ${color}  shadow rounded h-10 medium cursor-pointer ${selectedOption ? "text-content-primary" : "text-content-secondary"}`}
                     onClick={() => setIsDropDownShown(!isDropDownShown)}
                 >
                     <span>
