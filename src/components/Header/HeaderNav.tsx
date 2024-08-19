@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getAccessibleRoutes } from '@/routes/routes.helpers.ts';
 import useAuthStore from '@/services/zustand/auth/auth.store.ts';
-import Loader from '@/components/Loader/Loader.tsx';
 import { useRoutesContext } from '@/context/RoutesContext.tsx';
 
 const HeaderNav = () => {
@@ -12,12 +11,6 @@ const HeaderNav = () => {
   const routesHaveLink = useMemo(() => {
     return getAccessibleRoutes(routes, role)
   }, [routes, role]);
-
-  const isLoading = useAuthStore(state => state.isLoading)
-
-  if (isLoading) {
-    return <Loader />
-  }
 
   return (
     <nav className="flex gap-20 list-none justify-center">

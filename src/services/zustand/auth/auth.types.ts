@@ -1,4 +1,4 @@
-import { Session, User } from '@supabase/supabase-js';
+import {Session, User} from '@supabase/supabase-js';
 import { FieldValues } from 'react-hook-form';
 
 export enum Roles {
@@ -19,5 +19,6 @@ export interface IAuthState {
   signIn: (data: FieldValues) => Promise<void>
   signUp: (data: FieldValues) => Promise<void>
   getRole: (user_id: string) => Promise<void>
+  getSession: () => Promise<void>
   signOut: () => Promise<void>
 }

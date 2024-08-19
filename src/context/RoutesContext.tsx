@@ -8,7 +8,7 @@ interface RoutesContextProps {
 
 const RoutesContext = createContext<RoutesContextProps | undefined>(undefined);
 
-export const ReactContextProvider: FC<{ mainRoutes: IMainRoute[], children: ReactNode }> = ({ mainRoutes, children }) => {
+export const RoutesContextProvider: FC<{ mainRoutes: IMainRoute[], children: ReactNode }> = ({ mainRoutes, children }) => {
   const routes = useMemo(() => mainRoutes.flatMap(routes => routes.routes), [mainRoutes])
 
   return (
