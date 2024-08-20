@@ -27,10 +27,10 @@ const useAlbumsStore = create<IAlbumsState>()(
             isLoading: false,
             isCoverUpdating: false,
 
-            fetchAlbums: async (searchText = '', genre = '', format = '', nextPage = false) => {
+            fetchAlbums: async (nextPage = false) => {
                 set({ isLoading: true, page: nextPage ? get().page + 1 : INITIAL_PAGE});
                 try {
-                    const response = await albumsService.getAlbums(get().page, searchText, genre, format);
+                    const response = await albumsService.getAlbums(get().page);
 
                     if (response) {
                         const updatedAlbums = nextPage
@@ -56,6 +56,7 @@ const useAlbumsStore = create<IAlbumsState>()(
                 set({ isLoading: true });
                 try {
                   const response = await albumsService.getAlbum(album_id);
+
                   if (response) {
                     set({ selectedAlbum: response })
                     return response

@@ -14,10 +14,9 @@ const Albums = () => {
   const fetchAlbums = useAlbumsStore(state => state.fetchAlbums)
   const genre = useFiltersStore(state => state.selectedGenre)
   const format = useFiltersStore(state => state.selectedFormat)
-  const searchText = useFiltersStore(state => state.searchText)
 
   useEffect(() => {
-    fetchAlbums(searchText, genre, format)
+    fetchAlbums()
         .catch(console.error);
   }, [fetchAlbums, genre, format]);
 
@@ -39,7 +38,7 @@ const Albums = () => {
                 <Button
                     text={isLoading ? "Loading..." : "Load more"}
                     size="large"
-                    onClick={() => nextPage(searchText, genre, format, true)}
+                    onClick={() => nextPage(true)}
                 />
               )
           }

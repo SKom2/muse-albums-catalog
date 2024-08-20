@@ -5,22 +5,33 @@ import {IMode} from "@/components/Album/AlbumContainer.tsx";
 import toast from "react-hot-toast";
 import {useParams} from "react-router-dom";
 import {IAlbumFormFieldsValues} from "@/services/zustand/albums/albums.types.ts";
+import useAuthStore from "@/services/zustand/auth/auth.store.ts";
+
+export const ALBUM_FIELDS = {
+    NAME: 'name',
+    ARTIST_NAME: 'artist_name',
+    DATE_OF_ISSUE: 'date_of_issue',
+    NUMBER_OF_TRACKS: 'number_of_tracks',
+    FORMAT_NAME: 'format_name',
+    GENRE_NAME: 'genre_name',
+    COVER: 'cover',
+    DESCRIPTION: 'description',
+};
 
 export const useAlbumEditor = ({ mode }: { mode: IMode }) => {
     const isCreateMode = mode === 'create';
-
     const { albumId } = useParams();
-    const { register, watch } = useForm<IAlbumFormFieldsValues>();
+    const { register, watch, setValue } = useForm<IAlbumFormFieldsValues>();
 
-    const uploadAlbumCover = useAlbumsStore(state => state.uploadAlbumCover)
-    const submitAlbumChanges = useAlbumsStore(state => state.submitAlbumChanges)
+    const uploadAlbumCover = useAlbumsStore(state => state.uploadAlbumCover);
+    const submitAlbumChanges = useAlbumsStore(state => state.submitAlbumChanges);
 
     useEffect(() => {
         const subscription = watch((value, { name }) => {
-            if (name && value[name]) handleFieldsOnChange(name, value[name].toString())
-        })
+            if (name && value[name]) handleFieldsOnChange(name, value[name].toString());
+        });
 
-        return () => subscription.unsubscribe()
+        return () => subscription.unsubscribe();
     }, [watch]);
 
     const handleFileSelect = async (file: File) => {
@@ -40,20 +51,33 @@ export const useAlbumEditor = ({ mode }: { mode: IMode }) => {
         const state = useAlbumsStore.getState();
         const albumData = isCreateMode ? state.newAlbum : state.selectedAlbum;
 
-        if (!albumData) return; // If the album is not selected or not created, we do nothing
+        let user_id
+        if (isCreateMode) {
+            user_id = useAuthStore.getState().user?.id
+        }
+
+        if (!albumData) return;
 
         const {
+            name,
+            cover,
+            artist_name,
             date_of_issue,
             number_of_tracks,
             format_name,
             genre_name,
-            cover,
-            description = "BLa",
-            name,
-            artist_name = "Future"
+            description = "Hi",
         } = albumData;
 
-        if (!date_of_issue || !number_of_tracks || !format_name || !genre_name || !cover || !name || !artist_name) return;
+        if (!cover) {
+            toast.error("Please upload the cover image")
+            return
+        }
+
+        if (!date_of_issue || !number_of_tracks || !format_name || !genre_name || !name || !artist_name) {
+            toast.error("Please fill out all fields")
+            return;
+        }
 
         const payload = {
             name,
@@ -64,6 +88,7 @@ export const useAlbumEditor = ({ mode }: { mode: IMode }) => {
             format_name,
             genre_name,
             description,
+            user_id
         };
 
         await toast.promise(
@@ -81,5 +106,6 @@ export const useAlbumEditor = ({ mode }: { mode: IMode }) => {
         handleSubmit: onSubmit,
         handleFieldsOnChange,
         handleFileSelect,
+        setValue
     };
 };

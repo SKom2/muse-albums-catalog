@@ -11,6 +11,7 @@ const Filters: FC<{ isFiltersVisible: boolean, setIsFiltersVisible: (isVisible: 
 
     const selectedFormat = useFiltersStore(state => state.selectedFormat);
     const setSelectedFormat = useFiltersStore(state => state.setSelectedFormat);
+    const setSearchText = useFiltersStore(state => state.setSearchText);
 
     const genres = useFiltersStore(state => state.genres);
     const formats = useFiltersStore(state => state.formats);
@@ -19,9 +20,8 @@ const Filters: FC<{ isFiltersVisible: boolean, setIsFiltersVisible: (isVisible: 
 
     const handleSubmitForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const searchText = useFiltersStore.getState().searchText
 
-        filterAlbums(searchText, selectedGenre, selectedFormat)
+        filterAlbums()
             .then(() => {
                 setIsFiltersVisible(false)
             })
@@ -33,6 +33,13 @@ const Filters: FC<{ isFiltersVisible: boolean, setIsFiltersVisible: (isVisible: 
 
         setSelectedFormat('')
         setSelectedGenre('')
+        setSearchText('')
+
+        filterAlbums()
+            .then(() => {
+                setIsFiltersVisible(false)
+            })
+            .catch(console.error)
     }
 
     return (

@@ -9,7 +9,6 @@ interface InputProps {
   required?: boolean;
   label?: string;
   id?: string;
-  defaultValue?: string;
   onChange?: (value: string) => void;
 }
 
@@ -22,7 +21,6 @@ const Input: FC<InputProps> = ({
                                  type = "text",
                                  placeholder,
                                  required = true,
-                                 defaultValue = "",
                                }) => {
     return (
       <>
@@ -36,7 +34,6 @@ const Input: FC<InputProps> = ({
             className="w-full h-11 pl-3 shadow rounded min-w-[170px] bg-input-default main-text border border-screen-default focus:outline-none appearance-none focus:border-content-secondary"
             autoComplete={autoComplete}
             required={required}
-            defaultValue={defaultValue}
         />
       </>
     );

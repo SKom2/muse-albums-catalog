@@ -11,7 +11,7 @@ export interface IAlbumsState {
   isCoverUpdating: boolean,
 
   getAlbum: (album_id: string) => Promise<void>
-  fetchAlbums: (searchText?: string, genre?: string, format?: string, resetAlbums?: boolean) => Promise<void>;
+  fetchAlbums: (resetAlbums?: boolean) => Promise<void>;
 
   uploadAlbumCover: (file: File, mode: IMode) => Promise<void>
 
@@ -27,6 +27,7 @@ export interface IAlbumFormFieldsValues {
   cover?: File,
   artist_name?: string,
   description?: string,
+  user_id?: string
 }
 
 export interface IAlbum {

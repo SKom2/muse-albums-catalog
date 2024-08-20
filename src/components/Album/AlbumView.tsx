@@ -1,9 +1,7 @@
 import {FC, FormEvent, ReactNode} from 'react';
 import Button from '@/ui/Button';
 import { Toaster } from 'react-hot-toast';
-import Loader from '@/components/Loader/Loader.tsx';
 import { IMode } from '@/components/Album/AlbumContainer';
-import useAlbumsStore from "@/services/zustand/albums/albums.store.ts";
 
 interface AlbumViewProps {
     children: ReactNode;
@@ -12,13 +10,7 @@ interface AlbumViewProps {
 }
 
 const AlbumView: FC<AlbumViewProps> = ({ children, mode, handleSubmit }) => {
-    const isLoading = useAlbumsStore(state => state.isLoading);
-
-    if (isLoading) {
-        return <Loader />;
-    }
-
-    if (mode === 'create' || mode === 'edit') {
+    if (mode) {
         return (
             <>
                 <form className="grid grid-cols-album-page-columns gap-6 items-center justify-center" onSubmit={handleSubmit}>

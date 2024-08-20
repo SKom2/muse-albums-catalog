@@ -3,31 +3,36 @@ import { getRange } from '@/services/zustand/albums/albums.helpers.ts';
 import {INITIAL_PAGE} from "@/services/zustand/albums/albums.store.ts";
 import {uuid} from "@supabase/supabase-js/dist/main/lib/helpers";
 import {IAlbumFormFieldsValues} from "@/services/zustand/albums/albums.types.ts";
+import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
 
 export const albumsService = {
-  async getAlbums(page: number = INITIAL_PAGE, input: string = '', genre: string = '', format: string = ''): Promise<any> {
+  async getAlbums(page: number = INITIAL_PAGE): Promise<any> {
     const { from, to } = getRange(page)
     let query = supabase
       .from('albums')
       .select('*',  { count: 'exact' })
-      .order('id', { ascending: true })
+      .order('id', { ascending: false })
       .range(from, to)
 
+    const genre = useFiltersStore.getState().selectedGenre
     if (genre) {
       query = query.eq(
           'genre_name', genre
       )
     }
 
+    const format = useFiltersStore.getState().selectedFormat
     if (format) {
       query = query.eq(
           'format_name', format
       )
     }
 
-    if (input) {
+
+    const searchText = useFiltersStore.getState().searchText
+    if (searchText) {
       query = query.or(
-        `name.ilike.%${input}%`
+        `name.ilike.%${searchText}%`
       )
     }
 
@@ -93,12 +98,13 @@ export const albumsService = {
       name,
       cover,
       artist_name,
-      description
+      description,
+      user_id,
     } = data
 
     const { error } = await supabase
         .from('albums')
-        .insert({ name, cover, artist_name , format_name, genre_name, date_of_issue, number_of_tracks, description })
+        .insert({ name, cover, artist_name , format_name, genre_name, date_of_issue, number_of_tracks, description, user_id })
 
     if (error) throw error
   }

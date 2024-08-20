@@ -11,14 +11,11 @@ const SearchForm = () => {
     const { register, handleSubmit, watch, setValue} = useForm()
     const searchAlbums = useAlbumsStore(state => state.fetchAlbums)
     const setSearchText = useFiltersStore(state => state.setSearchText);
-    const searchText = useFiltersStore(state => state.searchText);
 
     const handleSearchSubmit: SubmitHandler<FieldValues>  = async (value) => {
-        const selectedGenre = useFiltersStore.getState().selectedGenre
-        const selectedFormat = useFiltersStore.getState().selectedFormat
-
+        setSearchText(value.search);
         try {
-            await searchAlbums(value.search, selectedGenre, selectedFormat);
+            await searchAlbums();
         } catch (error) {
             console.error(error);
         }
@@ -26,11 +23,10 @@ const SearchForm = () => {
 
     const debouncedSearch = debounce((value) => {
         handleSearchSubmit(value);
-        setSearchText(value.search);
     }, 500)
 
     useEffect(() => {
-        setValue("search", searchText)
+        setValue("search", '')
         const subscription = watch((value) => {
             debouncedSearch(value);
         });

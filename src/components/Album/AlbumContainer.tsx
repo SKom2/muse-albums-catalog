@@ -7,6 +7,7 @@ import useAlbumsStore from "@/services/zustand/albums/albums.store.ts";
 import { useParams } from "react-router-dom";
 import AlbumView from "@/components/Album/AlbumView.tsx";
 import {useAlbumEditor} from "@/hooks/useAlbumEditor.tsx";
+import Loader from "@/components/Loader/Loader.tsx";
 
 export type IMode = "edit" | "create" | undefined
 
@@ -14,19 +15,25 @@ const AlbumContainer: FC<{ mode?: IMode }> = ({ mode }) => {
     const { albumId } = useParams();
 
     const getAlbum = useAlbumsStore(state => state.getAlbum);
+    const isLoading = useAlbumsStore(state => state.isLoading);
+
+    useEffect(() => {
+        if (albumId) {
+            getAlbum(albumId)
+        }
+    }, [getAlbum, albumId]);
 
     const {
         handleFileSelect,
         handleFieldsOnChange,
         handleSubmit,
-        register
+        register,
+        setValue
     } = useAlbumEditor({ mode });
 
-    useEffect(() => {
-        if (albumId) {
-            getAlbum(albumId).catch(console.error);
-        }
-    }, [getAlbum, albumId]);
+    if (isLoading) {
+        return <Loader />;
+    }
 
     return (
         <section className="pb-10">
@@ -39,11 +46,13 @@ const AlbumContainer: FC<{ mode?: IMode }> = ({ mode }) => {
                     <AlbumMeta
                         mode={mode}
                         register={register}
+                        setValue={setValue}
                         handleFieldsOnChange={handleFieldsOnChange}
                     />
                 </AlbumInfoColumn>
                 <AlbumInfoColumn>
                     <AlbumDetails
+                        setValue={setValue}
                         mode={mode}
                         register={register}
                     />
