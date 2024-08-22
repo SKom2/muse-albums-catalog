@@ -6,20 +6,28 @@ export default {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'albums-grid-cols': 'repeat(auto-fill, minmax(250px, 1fr))',
+        'album-page-columns': 'minmax(250px, 390px) 1fr',
+      },
       fontFamily: {
         'serif': "var(--font-montserrat)",
         'sans-serif': "var(--font-roboto)",
       },
       colors: {
         'background-default': "rgba(var(--muse-background-default))",
+        'transparent': "rgba(var(--muse-color-transparent))",
 
         'screen-default': "rgba(var(--muse-screen-default))",
 
         'content-primary': "rgba(var(--muse-content-primary))",
         'content-secondary': "rgba(var(--muse-content-secondary))",
+        'content-tertiary': "rgba(var(--muse-content-tertiary))",
 
         'btn-primary': "rgba(var(--muse-button-primary))",
         'btn-hover': "rgba(var(--muse-button-hover))",
+
+        'btn-text': "rgba(var(--muse-button-text))",
 
         'error': "rgba(var(--muse-status-error))",
 

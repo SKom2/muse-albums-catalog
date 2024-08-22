@@ -1,11 +1,7 @@
 import { ComponentType } from 'react';
+import { Roles } from '@/services/zustand/auth/auth.types.ts';
 
-export enum Roles {
-  ADMIN = 'Admin',
-  VISITOR = 'Visitor'
-}
-
-export type RoleType = Roles.ADMIN | Roles.VISITOR | undefined | null;
+export type PageAccessRoleType = Roles | Roles[] | undefined;
 
 export enum Paths {
   LOGIN = '/login',
@@ -17,32 +13,20 @@ export enum Paths {
   CREATE_ALBUM = `${ALBUMS}/new`,
   FAVORITE_ALBUMS = `${ALBUMS}/favorites`,
   ALBUM_DETAILS = `${ALBUMS}/:albumId`,
-  EDIT_ALBUM = `${ALBUM_DETAILS}/edit`,
+  EDIT_ALBUM = `${ALBUMS}/:albumId/edit`,
 }
 
-export interface IRouteBase {
+export interface IRoute {
   name: string;
   title: string;
-  component?: ComponentType;
-  path?: string;
-  routes?: Route;
-  accessRole?: RoleType;
-  isPublic?: boolean;
+  component: ComponentType;
+  path: string;
+  routes?: IRoute[];
+  pageAccessRole?: PageAccessRoleType;
+  hasSideLink?: boolean;
 }
-
-interface PublicRoute extends IRouteBase {
-  isPublic: true;
-  accessRole?: never;
-}
-
-interface PrivateRoute extends IRouteBase {
-  isPublic?: false;
-  accessRole: Roles.ADMIN | Roles.VISITOR;
-}
-
-export type Route = (PublicRoute | PrivateRoute)[];
 
 export interface IMainRoute {
   layout: ComponentType;
-  routes: IRouteBase[];
+  routes: IRoute[];
 }

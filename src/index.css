@@ -21,13 +21,15 @@ html, body {
 
     --audio-color-grey-100: 229, 229, 229;
     --audio-color-grey-200: 186, 186, 186;
-    --audio-color-grey-500: 77, 77, 77;
+    --audio-color-grey-500: 107,106,105;
     --audio-color-grey-600: 50, 50, 50;
     --audio-color-grey-700: 43, 43, 43;
     --audio-color-grey-800: 22, 22, 22;
     --audio-color-grey-900: 24, 24, 24;
 
     --audio-color-red-400: 255, 51, 51;
+    --audio-color-red-500: 223,57,64;
+    --audio-color-red-600: 192, 49, 55;
 
     --audio-color-blue-400: 107, 175, 195;
     --audio-color-blue-500: 0, 75, 204;
@@ -54,8 +56,8 @@ html, body {
     --muse-content-primary: var(--audio-color-base-white);
     --muse-content-secondary: var(--audio-color-grey-200);
 
-    --muse-button-primary: var(--audio-color-grey-700);
-    --muse-button-hover: var(--audio-color-grey-500);
+    --muse-button-primary: var(--audio-color-red-500);
+    --muse-button-hover: var(--audio-color-red-600);
 
     --muse-status-error: var(--audio-color-red-400);
 
@@ -71,9 +73,12 @@ html, body {
 
     --muse-content-primary: var(--audio-color-base-black);
     --muse-content-secondary: var(--audio-color-grey-200);
+    --muse-content-tertiary: var(--audio-color-base-white);
 
-    --muse-button-primary: var(--audio-color-grey-600);
-    --muse-button-hover: var(--audio-color-grey-500);
+    --muse-button-primary: var(--audio-color-red-500);
+    --muse-button-hover: var(--audio-color-red-600);
+
+    --muse-button-text: var(--audio-color-base-white);
 
     --muse-status-error: var(--audio-color-red-400);
 

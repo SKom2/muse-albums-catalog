@@ -3,18 +3,21 @@
         @apply text-3xl font-bold leading-2xl;
     }
     .heading-2 {
-        @apply text-2xl font-bold leading-xl;
+        @apply text-2xl font-bold leading-2xl max-md:text-xl;
     }
-    .main-text {
-        @apply text-md font-normal leading-md;
-    }
-    .main-text-sm {
-        @apply text-sm font-normal leading-sm;
-    }
-    .subheading {
-        @apply text-lg font-normal leading-lg;
+    .heading-3 {
+        @apply text-lg font-semibold leading-lg;
     }
     .caption {
-        @apply text-lg font-light leading-lg;
+        @apply text-md font-bold leading-md;
+    }
+    .paragraph {
+        @apply text-lg font-normal leading-lg;
+    }
+    .medium {
+        @apply text-md font-normal leading-md;
+    }
+    .small {
+        @apply text-sm font-semibold leading-sm;
     }
 }

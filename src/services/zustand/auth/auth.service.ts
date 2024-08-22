@@ -17,14 +17,24 @@ export const authService = {
       email: email,
       password: password
     })
+
     if (error) throw error;
 
     return data
   },
 
-  async getCurrentSession () {
+  async getSession () {
     const { data, error } = await supabase.auth.getSession()
-    if (error) throw error;
+
+    if (error) throw error
+
+    return data
+  },
+
+  async refreshSession () {
+    const { data, error } = await supabase.auth.refreshSession()
+
+    if (error) throw error
 
     return data
   },

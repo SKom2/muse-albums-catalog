@@ -1,14 +1,27 @@
-import { FC } from 'react';
+import {FC, ReactNode} from 'react';
 
 interface ButtonProps {
-  text: string;
+  children: ReactNode;
   onClick?: () => void;
+  size?: 'small' | 'medium' | 'large' | 'full';
+  type?: 'button' | 'submit' | 'reset';
 }
 
-const Button: FC<ButtonProps> = ({ text, onClick }) => {
+const sizeClasses = {
+  small: 'w-24 h-8',
+  medium: 'w-32 h-11 max-md:w-full',
+  large: 'w-48 h-12 max-xl:w-40 max-lg:w-36',
+  full: 'w-full h-12',
+};
+
+const Button: FC<ButtonProps> = ({ type = 'button', children, onClick, size = 'full' }) => {
   return (
-    <button onClick={onClick} className="bg-btn-primary text-content-secondary w-full h-[46px] rounded-xl transition hover:bg-btn-hover">
-      {text}
+    <button
+      type={type}
+      onClick={onClick}
+      className={`bg-btn-primary text-btn-text flex items-center justify-center paragraph rounded transition hover:bg-btn-hover ${sizeClasses[size]}`}
+    >
+      {children}
     </button>
   );
 };

@@ -9,6 +9,7 @@ export const useAuthForm = (type: 'register' | 'login') => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate()
   const { signIn, signUp  } = useAuthStore()
+  const isLoading= useAuthStore(state => state.isLoading)
 
   const isLogin = type === 'login'
 
@@ -37,6 +38,7 @@ export const useAuthForm = (type: 'register' | 'login') => {
     register,
     handleSubmit: handleSubmit(handleFormSubmit),
     isPortalOpen,
+    isLoading,
     closePortal: () => setIsPortalOpen(false),
     isLogin
   };

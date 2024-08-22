@@ -1,4 +1,4 @@
-import Authorization from '@/containers/Authorization.tsx';
+import Authorization from '@/components/Auth/Authorization.tsx';
 
 const Register = () => {
   return <Authorization type="register"/>;

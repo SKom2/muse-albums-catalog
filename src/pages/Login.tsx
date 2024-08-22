@@ -1,4 +1,4 @@
-import Authorization from '@/containers/Authorization.tsx';
+import Authorization from '@/components/Auth/Authorization.tsx';
 
 const Login = () => {
   return <Authorization type="login" />
