@@ -23,7 +23,7 @@ function App() {
 
 const WrappedApp = () => {
     return (
-        <BrowserRouter basename="muse-catalog">
+        <BrowserRouter>
           <ThemeContextProvider>
             <RoutesContextProvider mainRoutes={routes}>
               <App />
