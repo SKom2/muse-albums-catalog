@@ -4,6 +4,7 @@ import Loader from '@/components/Loader/Loader.tsx';
 import useAlbumsStore, { INITIAL_PAGE } from '@/services/zustand/albums/albums.store.ts';
 import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
 import {useEffect} from "react";
+import useWindowDimensions from "@/hooks/useDimensions.ts";
 
 const Albums = () => {
   const nextPage = useAlbumsStore(state => state.fetchAlbums)
@@ -15,10 +16,24 @@ const Albums = () => {
   const genre = useFiltersStore(state => state.selectedGenre)
   const format = useFiltersStore(state => state.selectedFormat)
 
+  const { width } = useWindowDimensions()
+
   useEffect(() => {
+    if (width && width > 1550) {
+      useAlbumsStore.setState({ album_per_page: 5 })
+    } else if (width && width < 1550 && width >= 1240) {
+      useAlbumsStore.setState({ album_per_page: 8 })
+    } else if (width && width < 1240) {
+      useAlbumsStore.setState({ album_per_page: 6 })
+    }
+  }, [width]);
+
+
+  useEffect(() => {
+    if (width)
     fetchAlbums()
         .catch(console.error);
-  }, [fetchAlbums, genre, format]);
+  }, [fetchAlbums, genre, format, width]);
 
   if (page === INITIAL_PAGE && isLoading) {
     return <Loader />;
@@ -36,10 +51,11 @@ const Albums = () => {
           {
             amountOfAlbums !== albums.length && (
                 <Button
-                    text={isLoading ? "Loading..." : "Load more"}
                     size="large"
                     onClick={() => nextPage(true)}
-                />
+                >
+                  {isLoading ? "Loading..." : "Load more"}
+                </Button>
               )
           }
         </>

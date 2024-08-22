@@ -13,10 +13,10 @@ const AlbumView: FC<AlbumViewProps> = ({ children, mode, handleSubmit }) => {
     if (mode) {
         return (
             <>
-                <form className="grid grid-cols-album-page-columns gap-6 items-center justify-center" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     {children}
-                    <div className="col-span-full">
-                        <Button text="Save changes" type="submit" />
+                    <div className="col-span-full mt-4 max-md:w-full">
+                        <Button  type="submit">Save changes</Button>
                     </div>
                 </form>
                 <Toaster position="top-left" reverseOrder={false} />
@@ -25,7 +25,7 @@ const AlbumView: FC<AlbumViewProps> = ({ children, mode, handleSubmit }) => {
     }
 
     return (
-        <div className="grid grid-cols-album-page-columns gap-8 items-center justify-center">
+        <div>
             {children}
         </div>
     );

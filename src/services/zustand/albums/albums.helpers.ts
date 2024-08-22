@@ -1,7 +1,6 @@
-export const getRange = (page: number) => {
-    const ALBUM_PER_PAGE = 5;
-    const from = page * ALBUM_PER_PAGE;
-    const to = from + ALBUM_PER_PAGE - 1;
+export const getRange = (page: number, album_per_page: number) => {
+    const from = page * album_per_page;
+    const to = from + album_per_page - 1;
 
     return { from, to };
 }

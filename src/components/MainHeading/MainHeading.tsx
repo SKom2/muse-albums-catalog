@@ -4,9 +4,9 @@ import {useMemo, useState} from 'react';
 import { match } from 'path-to-regexp';
 import SearchForm from '@/components/SearchForm/SearchForm.tsx';
 import {IRoute, Paths} from '@/routes/routes.types.ts';
-import OpenFiltersButton from "@/components/Filters/OpenFiltersButton.tsx";
 import Filters from "@/components/Filters/Filters.tsx";
-
+import FilterIcon from "@/assets/icons/FilterIcon.tsx";
+import Button from "@/ui/Button.tsx";
 
 const getTitle = (pathname: string, routes: IRoute[]) => {
   let matchedTitle = '';
@@ -38,22 +38,27 @@ const MainHeading = () => {
 
   return (
     <section>
-      <div className="flex justify-between h-12 items-center">
-        <h1 className="heading">{title}</h1>
+      <div className="flex flex-col h-full w-full">
+        <div className="flex justify-between items-center md:h-[45px] max-md:flex-col max-md:items-center max-md:gap-8">
+          <h1 className="heading">{title}</h1>
+          {
+            isSearchFormExist && (
+                <div className="flex items-center h-full gap-4 max-md:justify-between max-md:w-full max-md:flex-row-reverse max-md:h-[45px]">
+                  <SearchForm />
+                  <Button type="button" size="medium" onClick={() => setIsFiltersVisible(!isFiltersVisible)}>
+                    <FilterIcon />
+                    <span className="medium">Filters</span>
+                  </Button>
+                </div>
+              )
+          }
+        </div>
         {
           isSearchFormExist && (
-              <>
-                <SearchForm />
-                <OpenFiltersButton onClick={() => setIsFiltersVisible(!isFiltersVisible)} />
-              </>
-            )
+            <Filters isFiltersVisible={isFiltersVisible} setIsFiltersVisible={setIsFiltersVisible}  />
+          )
         }
       </div>
-      {
-        isSearchFormExist && (
-          <Filters isFiltersVisible={isFiltersVisible} setIsFiltersVisible={setIsFiltersVisible}  />
-        )
-      }
     </section>
   );
 };

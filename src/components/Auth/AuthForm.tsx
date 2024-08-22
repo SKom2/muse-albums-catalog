@@ -30,7 +30,7 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
       <form className="gap-6 flex flex-col items-stretch" autoComplete="off" onSubmit={handleSubmit}>
         <AuthInputGroup register={register} />
         <Error />
-        <Button type="submit" text={buttonText} />
+        <Button type="submit">{buttonText}</Button>
         <p className="self-center main-text">
           or <Link className="text-link-default" to={linkPath}>{linkText}</Link>
         </p>

@@ -1,33 +1,9 @@
-import { useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
-import { getAccessibleRoutes } from '@/routes/routes.helpers.ts';
-import useAuthStore from '@/services/zustand/auth/auth.store.ts';
-import { useRoutesContext } from '@/context/RoutesContext.tsx';
+import NavLinks from "@/components/NavLinks/NavLinks.tsx";
 
 const HeaderNav = () => {
-  const { routes } = useRoutesContext();
-  const role = useAuthStore(state => state.role);
-
-  const routesHaveLink = useMemo(() => {
-    return getAccessibleRoutes(routes, role)
-  }, [routes, role]);
-
   return (
-    <nav className="flex gap-20 list-none justify-center">
-      {routesHaveLink.map(route => (
-        <NavLink
-          key={route.path}
-          to={route.path as string}
-          end
-          className={({ isActive }) =>
-            `w-fit caption uppercase inline-flex items-center justify-center transition ${
-              isActive ? 'font-bold text-content-primary' : 'text-content-secondary'
-            }`
-          }
-        >
-          {route.title}
-        </NavLink>
-      ))}
+    <nav className="flex gap-20 list-none max-xl:gap-16 max-lg:gap-12 justify-center max-md:hidden">
+      <NavLinks />
     </nav>
   );
 };

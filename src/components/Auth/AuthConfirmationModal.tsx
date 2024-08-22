@@ -1,5 +1,5 @@
 // components/ConfirmationPortal.tsx
-import React from 'react';
+import {FC} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@/ui/Button.tsx';
 
@@ -8,7 +8,7 @@ interface ConfirmationPortalProps {
   onClose: () => void;
 }
 
-const ConfirmationPortal: React.FC<ConfirmationPortalProps> = ({ message, onClose }) => {
+const ConfirmationPortal: FC<ConfirmationPortalProps> = ({ message, onClose }) => {
   const modalRoot = document.getElementById('modal');
 
   if (!modalRoot) {
@@ -20,7 +20,7 @@ const ConfirmationPortal: React.FC<ConfirmationPortalProps> = ({ message, onClos
       <div className="bg-screen-default p-6 rounded shadow-md">
         <h2 className="heading-2 mb-4">Confirmation</h2>
         <p className="mb-4">{message}</p>
-        <Button text="Close" onClick={onClose} />
+        <Button onClick={onClose}>Close</Button>
       </div>
     </div>,
     modalRoot

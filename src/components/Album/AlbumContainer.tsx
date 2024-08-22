@@ -36,28 +36,30 @@ const AlbumContainer: FC<{ mode?: IMode }> = ({ mode }) => {
     }
 
     return (
-        <section className="pb-10">
+        <section className="">
             <AlbumView mode={mode} handleSubmit={handleSubmit}>
-                <AlbumInfoColumn>
-                    <AlbumCover
-                        mode={mode}
-                        handleFileSelect={handleFileSelect}
-                    />
-                    <AlbumMeta
-                        mode={mode}
-                        register={register}
-                        setValue={setValue}
-                        handleFieldsOnChange={handleFieldsOnChange}
-                    />
-                </AlbumInfoColumn>
-                <AlbumInfoColumn>
-                    <AlbumDetails
-                        setValue={setValue}
-                        mode={mode}
-                        register={register}
-                    />
-                    <div className="bg-screen-default rounded-xl shadow h-full w-full p-4 paragraph"></div>
-                </AlbumInfoColumn>
+                <div className="grid grid-cols-album-page-columns gap-6 items-center justify-center max-md:flex max-md:flex-col-reverse">
+                    <AlbumInfoColumn>
+                        <AlbumCover
+                            mode={mode}
+                            handleFileSelect={handleFileSelect}
+                        />
+                        <AlbumMeta
+                            mode={mode}
+                            register={register}
+                            setValue={setValue}
+                            handleFieldsOnChange={handleFieldsOnChange}
+                        />
+                    </AlbumInfoColumn>
+                    <AlbumInfoColumn>
+                        <AlbumDetails
+                            setValue={setValue}
+                            mode={mode}
+                            register={register}
+                        />
+                        <div className="bg-screen-default rounded-xl shadow h-full w-full p-4 paragraph max-md:hidden"></div>
+                    </AlbumInfoColumn>
+                </div>
             </AlbumView>
         </section>
     );

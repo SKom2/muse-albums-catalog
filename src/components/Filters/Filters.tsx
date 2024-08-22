@@ -43,9 +43,9 @@ const Filters: FC<{ isFiltersVisible: boolean, setIsFiltersVisible: (isVisible: 
     }
 
     return (
-        <div className={`mt-6 flex-col transition-all duration-500 max-h-0 ${isFiltersVisible ? 'max-h-40 h-fit opacity-100' : 'overflow-hidden opacity-0'}`}>
-            <form className="flex items-end gap-8" onSubmit={handleSubmitForm} onReset={handleResetForm}>
-                <div className="flex gap-4">
+        <div className={`flex-col transition-all duration-500 max-h-0 max-md:w-full ${isFiltersVisible ? 'max-h-40 h-fit opacity-100 mt-6' : 'overflow-hidden opacity-0'}`}>
+            <form className="flex items-end gap-8 max-md:flex-col max-md:gap-4" onSubmit={handleSubmitForm} onReset={handleResetForm}>
+                <div className="flex gap-2 max-md:w-full">
                     <Select color="bg-screen-default" placeholder="Choose genre" label="Genre" selectedOption={selectedGenre} setSelectedOption={setSelectedGenre}>
                         <Options options={genres} />
                     </Select>
@@ -53,9 +53,9 @@ const Filters: FC<{ isFiltersVisible: boolean, setIsFiltersVisible: (isVisible: 
                         <Options options={formats} />
                     </Select>
                 </div>
-                <div className="flex gap-2">
-                    <Button text="Save filters" size="medium" type="submit"/>
-                    <Button text="Reset filters" size="medium" type="reset"/>
+                <div className="flex gap-2 max-md:w-full">
+                    <Button size="medium" type="submit">Save filters</Button>
+                    <Button size="medium" type="reset">Reset filters</Button>
                 </div>
             </form>
         </div>

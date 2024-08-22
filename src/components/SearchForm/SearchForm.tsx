@@ -37,7 +37,7 @@ const SearchForm = () => {
     }, [watch]);
 
     return (
-        <form className="flex gap-2 w-1/6 items-center" onSubmit={handleSubmit(handleSearchSubmit)}>
+        <form className="flex gap-2 items-center" onSubmit={handleSubmit(handleSearchSubmit)}>
           <Input register={register} name="search" placeholder="Search albums" />
           <IconButton size="medium" type="submit">
             <SearchIcon />

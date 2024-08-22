@@ -15,13 +15,13 @@ const HeaderButtonGroup = () => {
   }
 
   return (
-    <div className="h-full flex items-center justify-center">
-      {!isAuthorized ?
-        <Button size="large" text="Sign in" onClick={() => navigate(Paths.LOGIN)} />
-        :
-        <Button size="large" text="Sign out" onClick={handleSignOut} />
-      }
-    </div>
+        <div className="h-full flex gap-4 items-center justify-center">
+          {!isAuthorized ?
+              <Button size="large" onClick={() => navigate(Paths.LOGIN)}>Sign in</Button>
+            :
+              <Button size="large" onClick={handleSignOut}>Sign out</Button>
+          }
+        </div>
   );
 };
 

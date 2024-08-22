@@ -32,13 +32,13 @@ const Select: FC<{
 
     return (
         <SelectContext.Provider value={{ selectedOption: selectedOption ? selectedOption : '', changeSelectedOption: handleClickOnOption }}>
-            <div className="flex flex-col gap-2 w-full min-w-48 relative" ref={selectContainerRef}>
+            <div className="flex flex-col gap-2 w-[170px] relative" ref={selectContainerRef}>
                 <p className="caption">{label}</p>
                 <div
-                    className={`flex w-full justify-between items-center px-3 ${color}  shadow rounded h-10 medium cursor-pointer ${selectedOption ? "text-content-primary" : "text-content-secondary"}`}
+                    className={`flex w-full justify-between items-center px-3 ${color} shadow rounded h-10 medium cursor-pointer ${selectedOption ? "text-content-primary" : "text-content-secondary"}`}
                     onClick={() => setIsDropDownShown(!isDropDownShown)}
                 >
-                    <span>
+                    <span className="medium">
                         {selectedOption ? selectedOption : selectPlaceholder}
                     </span>
                     <ArrowDown />

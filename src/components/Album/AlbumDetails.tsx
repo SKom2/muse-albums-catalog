@@ -20,9 +20,9 @@ const AlbumDetails: FC<{
     }, []);
 
     return (
-        <div className="pt-20 flex flex-col gap-2 items-start justify-start">
+        <div className="pt-20 flex w-full flex-col gap-2 items-start justify-start max-md:pt-0 max-md:max-w-[450px] max-sm:max-w-[350px] max-md:items-center">
             {mode ? (
-                <div className="max-w-[450px] w-full grid gap-4">
+                <div className="max-w-[450px] w-full grid gap-4 max-md:max-w-full">
                     <Input
                         name={ALBUM_FIELDS.NAME}
                         label="Album Title"

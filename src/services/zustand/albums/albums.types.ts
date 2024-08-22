@@ -6,6 +6,7 @@ export interface IAlbumsState {
   newAlbum: INewAlbum,
   amountOfAlbums: number | null,
   page: number,
+  album_per_page: number,
 
   isLoading: boolean,
   isCoverUpdating: boolean,

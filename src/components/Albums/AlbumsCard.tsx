@@ -36,9 +36,9 @@ const AlbumsCard = ({ album }: { album: IAlbum }) => {
       <div className="h-full flex flex-col gap-5 relative justify-between">
         <img src={cover} alt="Album Card Cover" className="w-full object-cover h-[230px] shadow-2xl rounded transition group-hover/card:shadow-content-tertiary" />
         <div className="flex justify-between items-center">
-          <div className="max-w-[180px]">
+          <div className="max-w-[170px]">
             <h2 className="heading-3 truncate">{album.name}</h2>
-            <p className="medium text-content-secondary">{album.artist_name}, <span>{year}</span></p>
+            <p className="medium text-content-secondary truncate">{album.artist_name}, <span>{year}</span></p>
           </div>
           {
             role === Roles.ADMIN &&

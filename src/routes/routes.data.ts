@@ -13,7 +13,6 @@ import Catalogue from '@/pages/Catalogue.tsx';
 import Album from '@/pages/Album.tsx';
 import CreateAlbum from '@/pages/CreateAlbum.tsx';
 import EditAlbum from '@/pages/EditAlbum.tsx';
-import Favorites from '@/pages/Favorites.tsx';
 import NotFound from '@/pages/404.tsx';
 
 
@@ -51,14 +50,14 @@ export const routes: IMainRoute[] = [
           path: Paths.ALBUMS,
           hasSideLink: true
         },
-        {
-          name: 'favorite-albums',
-          title: 'Favorite albums',
-          component: Favorites,
-          path: Paths.FAVORITE_ALBUMS,
-          pageAccessRole: [Roles.VISITOR, Roles.ADMIN],
-          hasSideLink: true
-        },
+          // {
+          //   name: 'favorite-albums',
+          //   title: 'Favorite albums',
+          //   component: Favorites,
+          //   path: Paths.FAVORITE_ALBUMS,
+          //   pageAccessRole: [Roles.VISITOR, Roles.ADMIN],
+          //   hasSideLink: true
+          // },
         {
           name: 'album-details',
           title: 'Album details',

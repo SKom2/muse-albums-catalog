@@ -22,9 +22,9 @@ const HeaderSection: FC<NavBlockProps> = ({ children, alignment }) => {
   }
 
   return (
-    <div className={`flex ${justifyContent} items-center gap-2 h-full`}>
-      {children}
-    </div>
+      <div className={`flex ${justifyContent} items-center gap-2 h-full`}>
+        {children}
+      </div>
   );
 };
 

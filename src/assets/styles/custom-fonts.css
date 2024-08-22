@@ -3,7 +3,7 @@
         @apply text-3xl font-bold leading-2xl;
     }
     .heading-2 {
-        @apply text-2xl font-bold leading-2xl;
+        @apply text-2xl font-bold leading-2xl max-md:text-xl;
     }
     .heading-3 {
         @apply text-lg font-semibold leading-lg;
@@ -16,5 +16,8 @@
     }
     .medium {
         @apply text-md font-normal leading-md;
+    }
+    .small {
+        @apply text-sm font-semibold leading-sm;
     }
 }

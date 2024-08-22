@@ -23,6 +23,7 @@ const useAlbumsStore = create<IAlbumsState>()(
             },
             amountOfAlbums: null,
             page: INITIAL_PAGE,
+            album_per_page: 5,
 
             isLoading: false,
             isCoverUpdating: false,
@@ -30,7 +31,7 @@ const useAlbumsStore = create<IAlbumsState>()(
             fetchAlbums: async (nextPage = false) => {
                 set({ isLoading: true, page: nextPage ? get().page + 1 : INITIAL_PAGE});
                 try {
-                    const response = await albumsService.getAlbums(get().page);
+                    const response = await albumsService.getAlbums(get().page, useAlbumsStore.getState().album_per_page);
 
                     if (response) {
                         const updatedAlbums = nextPage

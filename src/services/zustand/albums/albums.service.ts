@@ -6,8 +6,8 @@ import {IAlbumFormFieldsValues} from "@/services/zustand/albums/albums.types.ts"
 import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
 
 export const albumsService = {
-  async getAlbums(page: number = INITIAL_PAGE): Promise<any> {
-    const { from, to } = getRange(page)
+  async getAlbums(page: number = INITIAL_PAGE, album_per_page: number): Promise<any> {
+    const { from, to } = getRange(page, album_per_page)
     let query = supabase
       .from('albums')
       .select('*',  { count: 'exact' })

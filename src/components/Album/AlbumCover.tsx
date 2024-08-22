@@ -23,7 +23,7 @@ const AlbumCover: FC<{ mode: IMode, handleFileSelect: (file: File) => void }> = 
     };
 
     return (
-        <div className="relative w-full h-[350px] transition bg-content-secondary hover:bg-transparent">
+        <div className="relative w-full h-[450px] transition bg-content-secondary hover:bg-transparent max-md:max-w-[450px] max-sm:max-w-[350px] max-sm:h-[350px]">
             {isCoverLoading ? (
                 <div className="w-full h-full object-cover opacity-60 border-2 border-btn-primary border-dashed">
                     <Loader />
