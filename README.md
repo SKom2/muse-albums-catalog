@@ -80,7 +80,8 @@ The database for the application is structured as follows:
 3. **Environment Variables**:
    Create a `.env` file in the root of the project and add your Supabase credentials:
     ```bash
-    VITE_SUPABASE_URL=https://yvomtbzsvhzwkgdaaegw.supabase.co    VITE_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2b210Ynpzdmh6d2tnZGFhZWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEwMzIwNTMsImV4cCI6MjAzNjYwODA1M30.eBtKedHcq1jqvUDabAEpsmPr5iqiIFSkUXemBFLOgSQ
+    VITE_SUPABASE_URL=https://yvomtbzsvhzwkgdaaegw.supabase.co
+    VITE_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2b210Ynpzdmh6d2tnZGFhZWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEwMzIwNTMsImV4cCI6MjAzNjYwODA1M30.eBtKedHcq1jqvUDabAEpsmPr5iqiIFSkUXemBFLOgSQ
     ```
 
 4. **Run the Application**:
