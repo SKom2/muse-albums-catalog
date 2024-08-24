@@ -29,7 +29,7 @@ This repository contains a web application built with React, TypeScript, Vite, T
 
 ### 2. Catalog Page
 - **Paginated List**: Displays a list of music albums. You can extend this list and see more albums by click on "Load more"
-- **Search and Filter**: Allows users to search for albums and filter the results based on specific criteria.
+- **Search and Filter**: Allows users to search for albums and filter the results by genre and format.
 - **Album Detail Page**: Clicking on an album card navigates to a detailed page of the album.
 
 ### 3. Album Detail Page
