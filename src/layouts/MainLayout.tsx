@@ -13,11 +13,7 @@ const MainLayout = () => {
     const toggleTheme = useThemeStore(state => state.toggleTheme)
 
     const fetchFilters = useCallback(async () => {
-        try {
-            await Promise.all([getGenres(), getFormats()]);
-        } catch (error) {
-            console.error("Failed to fetch filters:", error);
-        }
+        await Promise.all([getGenres(), getFormats()]);
     }, [getGenres, getFormats]);
 
     useEffect(() => {
@@ -30,7 +26,7 @@ const MainLayout = () => {
             <Main>
              <Outlet />
             </Main>
-            <div className="fixed bottom-6 left-6 max-md:bottom-20">
+            <div className="fixed bottom-6 left-6">
                 <IconButton size="large" onClick={toggleTheme}>
                     <BrushIcon />
                 </IconButton>
