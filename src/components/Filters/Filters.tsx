@@ -1,9 +1,11 @@
-import {FC, FormEvent} from "react";
+import { FC, FormEvent, useEffect } from "react";
 import Select from "@/components/Select/Select.tsx";
 import Button from "@/ui/Button.tsx";
 import useAlbumsStore from "@/services/zustand/albums/albums.store.ts";
 import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
 import Options from "@/components/Select/Options.tsx";
+import { useLocation } from "react-router-dom";
+import { Paths } from "@/routes/routes.types.ts";
 
 const Filters: FC<{ isFiltersVisible: boolean, setIsFiltersVisible: (isVisible: boolean) => void }> = ({ isFiltersVisible, setIsFiltersVisible }) => {
     const selectedGenre = useFiltersStore(state => state.selectedGenre);
@@ -16,31 +18,45 @@ const Filters: FC<{ isFiltersVisible: boolean, setIsFiltersVisible: (isVisible: 
     const genres = useFiltersStore(state => state.genres);
     const formats = useFiltersStore(state => state.formats);
 
-    const filterAlbums = useAlbumsStore(state => state.fetchAlbums)
+    const location = useLocation();
+
+    const getFilterAlbums = () => {
+        return location.pathname === Paths.FAVORITE_ALBUMS
+            ? useAlbumsStore.getState().fetchFavoriteAlbums
+            : useAlbumsStore.getState().fetchAlbums;
+    };
 
     const handleSubmitForm = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        event.preventDefault();
+        const filterAlbums = getFilterAlbums();
 
         filterAlbums()
             .then(() => {
-                setIsFiltersVisible(false)
+                setIsFiltersVisible(false);
             })
-            .catch(console.error)
-    }
+            .catch(console.error);
+    };
 
     const handleResetForm = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        event.preventDefault();
+        const filterAlbums = getFilterAlbums();
 
-        setSelectedFormat('')
-        setSelectedGenre('')
-        setSearchText('')
+        setSelectedFormat('');
+        setSelectedGenre('');
+        setSearchText('');
 
         filterAlbums()
             .then(() => {
-                setIsFiltersVisible(false)
+                setIsFiltersVisible(false);
             })
-            .catch(console.error)
-    }
+            .catch(console.error);
+    };
+
+    useEffect(() => {
+        setSelectedFormat('');
+        setSelectedGenre('');
+        setSearchText('');
+    }, [location.pathname]);
 
     return (
         <div className={`flex-col transition-all duration-500 max-h-0 max-md:w-full ${isFiltersVisible ? 'max-h-40 h-fit opacity-100 mt-6' : 'overflow-hidden opacity-0'}`}>
