@@ -13,6 +13,8 @@ This repository contains a web application built with React, TypeScript, Vite, T
 - [Tech Stack](#tech-stack)
 - [Database Schema](#database-schema)
 - [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Existing Users](#existing-users)
 - [Deployment](#deployment)
 - [Responsiveness](#responsiveness)
 - [Contributing](#contributing)
@@ -23,12 +25,12 @@ This repository contains a web application built with React, TypeScript, Vite, T
 
 ### 1. Authentication and Authorization
 - **User Roles**: Two roles are supported—Admin and Visitor.
-- **Login and Registration**: Users can sign up and log in to access the application.
-- **Email Confirmation**: During registration, users receive a confirmation email to verify their account, sent from custom domain.
-- **Role-Based Access Control**: Admins can create, edit, and delete albums, while visitors can only view, filter and search.
+- **Login and Registration**: Users can sign up and log in to access the application. 
+- **Email Confirmation**: During registration, users receive a confirmation email to verify their account, sent from a custom domain.
+- **Role-Based Access Control**: Admins can create, edit, and delete albums, while visitors can only view, filter, and search.
 
 ### 2. Catalog Page
-- **Paginated List**: Displays a list of music albums. You can extend this list and see more albums by click on "Load more"
+- **Paginated List**: Displays a list of music albums. You can extend this list and see more albums by clicking on "Load more."
 - **Search and Filter**: Allows users to search for albums and filter the results by genre and format.
 - **Album Detail Page**: Clicking on an album card navigates to a detailed page of the album.
 
@@ -80,8 +82,8 @@ The database for the application is structured as follows:
 3. **Environment Variables**:
    Create a `.env` file in the root of the project and add your Supabase credentials:
     ```bash
-    VITE_SUPABASE_URL=https://yvomtbzsvhzwkgdaaegw.supabase.co
-    VITE_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2b210Ynpzdmh6d2tnZGFhZWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEwMzIwNTMsImV4cCI6MjAzNjYwODA1M30.eBtKedHcq1jqvUDabAEpsmPr5iqiIFSkUXemBFLOgSQ
+    VITE_SUPABASE_URL=https://your-supabase-url.supabase.co
+    VITE_SUPABASE_KEY=your-supabase-anon-key
     ```
 
 4. **Run the Application**:
@@ -98,7 +100,35 @@ The database for the application is structured as follows:
     yarn build
     ```
 
+## Environment Variables
+
+The following environment variables are required to configure the application:
+
+- `VITE_SUPABASE_URL`: The URL of your Supabase project.
+- `VITE_SUPABASE_KEY`: The public anonymous key for your Supabase project.
+
+These variables should be set in a `.env` file located at the root of your project.
+
+## Existing Users
+
+To facilitate testing and exploration of the application, there are two pre-existing users:
+
+- **Admin**:
+  - **Login**: `admin@admin.com`
+  - **Password**: `admin123`
+  - **Role**: Admin (can create, edit, and delete albums)
+
+- **Visitor**:
+  - **Login**: `visitor@visitor.com`
+  - **Password**: `visitor123`
+  - **Role**: Visitor (can view, search, and filter albums)
+
+## Deployment
+
+Instructions for deploying the application on Netlify or any other platform can be added here.
+
 ## Responsiveness
-The application is fully responsive and designed to work on a variety of devices without horizontal scrolling.
+
+The application is fully responsive.
 
 **Note**: While the core functionality is implemented, the favorite albums catalog page is a planned enhancement and is currently not available.
