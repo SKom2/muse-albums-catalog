@@ -1,52 +1,116 @@
 import supabase from '@/services/api/supabaseClient.ts';
 import { getRange } from '@/services/zustand/albums/albums.helpers.ts';
-import {INITIAL_PAGE} from "@/services/zustand/albums/albums.store.ts";
 import {uuid} from "@supabase/supabase-js/dist/main/lib/helpers";
 import {IAlbumFormFieldsValues} from "@/services/zustand/albums/albums.types.ts";
 import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
+import useAuthStore from "@/services/zustand/auth/auth.store.ts";
+import useAlbumsStore from "@/services/zustand/albums/albums.store.ts";
 
 export const albumsService = {
-  async getAlbums(page: number = INITIAL_PAGE, album_per_page: number): Promise<any> {
-    const { from, to } = getRange(page, album_per_page)
+  async fetchAlbums(): Promise<any> {
+    const { from, to } = getRange(useAlbumsStore.getState().page);
+
+    const userId = useAuthStore.getState().user?.id;
+    if (!userId) throw new Error("User not authenticated");
+
     let query = supabase
-      .from('albums')
-      .select('*',  { count: 'exact' })
-      .order('id', { ascending: false })
-      .range(from, to)
+        .from('albums')
+        .select(`
+            *,
+            favorites!left(
+                album_id
+            )
+        `, { count: 'exact' })
+        .eq('favorites.user_id', userId)
+        .order('id', { ascending: false })
+        .range(from, to);
 
-    const genre = useFiltersStore.getState().selectedGenre
+    const genre = useFiltersStore.getState().selectedGenre;
     if (genre) {
-      query = query.eq(
-          'genre_name', genre
-      )
+      query = query.eq('genre_name', genre);
     }
 
-    const format = useFiltersStore.getState().selectedFormat
+    const format = useFiltersStore.getState().selectedFormat;
     if (format) {
-      query = query.eq(
-          'format_name', format
-      )
+      query = query.eq('format_name', format);
     }
 
-
-    const searchText = useFiltersStore.getState().searchText
+    const searchText = useFiltersStore.getState().searchText;
     if (searchText) {
-      query = query.or(
-        `name.ilike.%${searchText}%`
-      )
+      query = query.ilike('name', `%${searchText}%`);
     }
 
     const { data: albums, count, error } = await query;
 
     if (error) throw error;
 
+    const updatedAlbums = albums.map(album => ({
+      ...album,
+      isFavorite: album.favorites.length > 0,
+    }));
+
     return {
-      albums,
+      albums: updatedAlbums,
       count,
-    }
+    };
   },
 
-  async getAlbum(album_id: string): Promise<any> {
+
+  async fetchFavoriteAlbums() {
+    const { from, to } = getRange(useAlbumsStore.getState().favoritesPage);
+
+    const userId = useAuthStore.getState().user?.id;
+    if (!userId) throw new Error("User not authenticated");
+
+    let query = supabase
+        .from('favorites')
+        .select(`album:album_id (*)`, { count: 'exact' })
+        .eq('user_id', userId)
+        .not('album', 'is', null)
+        .order('id', { ascending: false })
+        .range(from, to);
+
+    const genre = useFiltersStore.getState().selectedGenre;
+    if (genre) {
+      query = query.eq(
+          'album.genre_name', genre
+      )
+    }
+
+    const format = useFiltersStore.getState().selectedFormat;
+    if (format) {
+      query = query.eq(
+          'album.format_name', format
+      )
+    }
+
+    const searchText = useFiltersStore.getState().searchText;
+    if (searchText) {
+      query = query.ilike('album.name', `%${searchText}%`);
+    }
+
+    const { data, count, error } = await query;
+
+    if (error) throw error;
+
+    const albums = data
+        .filter((item: any) => item.album !== null)
+        .map((item: any) => ({
+          ...item.album,
+          isFavorite: true
+        }))
+
+    const favoriteAlbums = useAlbumsStore.getState().favoriteAlbums
+
+    const filteredCount = albums.length + (favoriteAlbums ? favoriteAlbums?.length : 0);
+
+    return {
+      albums,
+      count: filteredCount * (useAlbumsStore.getState().page + 1) < useAlbumsStore.getState().album_per_page ? filteredCount : count,
+    };
+  },
+
+  async fetchAlbumById(album_id: string): Promise<any> {
     const { data: album, error } = await supabase
       .from('albums')
       .select()
@@ -56,6 +120,52 @@ export const albumsService = {
     if (error) throw error;
 
     return album
+  },
+
+  async deleteAlbum(album_id: number): Promise<any> {
+    const { error } = await supabase.from('albums').delete().match({ id: album_id})
+
+    if (error) throw error;
+
+    return
+  },
+
+  async deleteAlbumFromFavorites(album_id: number): Promise<any> {
+    const { error } = await supabase.from('favorites').delete().match({ album_id })
+
+    if (error) throw error;
+
+    return;
+  },
+
+  async deleteAlbumFromUserFavorites(album_id: number): Promise<any> {
+    const user_id = useAuthStore.getState().user?.id;
+
+    const data = {
+      user_id,
+      album_id
+    }
+
+    const { error } = await supabase.from('favorites').delete().match(data)
+
+    if (error) throw error;
+
+    return;
+  },
+
+  async insertAlbumToFavorites(album_id: number): Promise<any> {
+    const user_id = useAuthStore.getState().user?.id
+
+    const data = {
+      user_id,
+      album_id
+    }
+
+    const { error } = await supabase.from('favorites').insert(data)
+
+    if (error) throw error;
+
+    return;
   },
 
   async uploadAlbumCoverToStorage (file: any): Promise<any> {
@@ -70,42 +180,23 @@ export const albumsService = {
   },
 
   async updateAlbumFields (albumId: string, data: IAlbumFormFieldsValues): Promise<any> {
-    const {
-      date_of_issue,
-      number_of_tracks,
-      genre_name,
-      format_name,
-      name,
-      cover,
-      artist_name,
-      description
-    } = data
-
     const { error } = await supabase
         .from('albums')
-        .update({ date_of_issue, number_of_tracks, format_name, genre_name, name, cover, artist_name, description })
+        .update(data)
         .eq('id', albumId)
 
     if (error) throw error
   },
 
   async createNewAlbum(data: IAlbumFormFieldsValues): Promise<any> {
-    const {
-      date_of_issue,
-      number_of_tracks,
-      genre_name,
-      format_name,
-      name,
-      cover,
-      artist_name,
-      description,
-      user_id,
-    } = data
-
-    const { error } = await supabase
+    const { data: album, error } = await supabase
         .from('albums')
-        .insert({ name, cover, artist_name , format_name, genre_name, date_of_issue, number_of_tracks, description, user_id })
+        .insert(data)
+        .select()
+
 
     if (error) throw error
+
+    return album
   }
 }
