@@ -1,17 +1,10 @@
 import DisplayAlbums from '@/components/Albums/DisplayAlbums.tsx';
 import useAlbumsStore from '@/services/zustand/albums/albums.store.ts';
-import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
 import { FC, useEffect } from "react";
 import useWindowDimensions from "@/hooks/useDimensions.ts";
 
 const AlbumGallery: FC<{ isFavoritesPage?: boolean }> = ({ isFavoritesPage = false }) => {
-
-  const albums = useAlbumsStore(state => isFavoritesPage ? state.favoriteAlbums : state.albums);
   const fetchAlbums = useAlbumsStore(state => isFavoritesPage ? state.fetchFavoriteAlbums : state.fetchAlbums);
-
-  const genre = useFiltersStore(state => state.selectedGenre);
-  const format = useFiltersStore(state => state.selectedFormat);
-
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -25,10 +18,9 @@ const AlbumGallery: FC<{ isFavoritesPage?: boolean }> = ({ isFavoritesPage = fal
   }, [width]);
 
   useEffect(() => {
-    if (width && !albums) {
+    if (width)
       fetchAlbums();
-    }
-  }, [fetchAlbums, genre, format, width, albums]);
+  }, [fetchAlbums, width]);
 
   return (
       <section className="min-h-60">
