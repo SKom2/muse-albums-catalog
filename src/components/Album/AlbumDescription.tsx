@@ -16,7 +16,7 @@ const AlbumDescription: FC<{ mode: IMode, register: any, setValue: UseFormSetVal
     return (
         <>
             {mode ?
-                <textarea className="bg-screen-default rounded-xl shadow h-full w-full p-4 paragraph hover:outline hover:outline-amber-300" {...register(ALBUM_FIELDS.DESCRIPTION)} />
+                <textarea className="bg-input-default main-text outline outline-1 outline-screen-default appearance-none focus:outline-content-secondary rounded-xl shadow h-full w-full p-4 paragraph " {...register(ALBUM_FIELDS.DESCRIPTION)} />
                 :
                 <div className="bg-screen-default rounded-xl shadow h-full w-full p-4 paragraph">{selectedAlbum?.description}</div>
             }
