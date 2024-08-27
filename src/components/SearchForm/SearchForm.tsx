@@ -1,47 +1,53 @@
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import IconButton from '@/ui/IconButton.tsx';
 import SearchIcon from '@/assets/icons/SearchIcon.tsx';
 import useAlbumsStore from '@/services/zustand/albums/albums.store.ts';
 import { debounce } from 'lodash';
 import Input from '@/ui/Input.tsx';
 import useFiltersStore from "@/services/zustand/filters/filters.store.ts";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Paths } from "@/routes/routes.types.ts";
 
 const SearchForm = () => {
-    const { register, handleSubmit, watch, setValue} = useForm()
-    const searchAlbums = useAlbumsStore(state => state.fetchAlbums)
+    const { register, handleSubmit, watch, setValue} = useForm();
+    const location = useLocation();
+
     const setSearchText = useFiltersStore(state => state.setSearchText);
 
-    const handleSearchSubmit: SubmitHandler<FieldValues>  = async (value) => {
-        setSearchText(value.search);
-        try {
-            await searchAlbums();
-        } catch (error) {
-            console.error(error);
-        }
+    const handleSearchSubmit = async (searchAlbums: any) => {
+        await searchAlbums();
     };
 
-    const debouncedSearch = debounce((value) => {
-        handleSearchSubmit(value);
-    }, 500)
+    const debouncedSearch = debounce((searchAlbums) => {
+        handleSearchSubmit(searchAlbums);
+    }, 500);
 
     useEffect(() => {
-        setValue("search", '')
+        const isFavorites = location.pathname === Paths.FAVORITE_ALBUMS;
+        const searchAlbums = isFavorites ? useAlbumsStore.getState().fetchFavoriteAlbums : useAlbumsStore.getState().fetchAlbums;
+
+        setValue("search", '');
+        setSearchText('');
+
         const subscription = watch((value) => {
-            debouncedSearch(value);
+            setSearchText(value.search);
+            debouncedSearch(searchAlbums);
         });
 
         return () => {
             subscription.unsubscribe();
-        }
-    }, [watch]);
+        };
+    }, [location.pathname, watch]);
 
     return (
-        <form className="flex gap-2 items-center" onSubmit={handleSubmit(handleSearchSubmit)}>
-          <Input register={register} name="search" placeholder="Search albums" />
-          <IconButton size="medium" type="submit">
-            <SearchIcon />
-          </IconButton>
+        <form onSubmit={handleSubmit(handleSearchSubmit)}>
+            <div className="flex gap-2 items-center">
+                <Input register={register} name="search" placeholder="Search albums" />
+                <IconButton size="medium" type="submit">
+                    <SearchIcon />
+                </IconButton>
+            </div>
         </form>
     );
 };

@@ -24,7 +24,7 @@ export const useAlbumEditor = ({ mode }: { mode: IMode }) => {
     const { register, watch, setValue } = useForm<IAlbumFormFieldsValues>();
 
     const uploadAlbumCover = useAlbumsStore(state => state.uploadAlbumCover);
-    const submitAlbumChanges = useAlbumsStore(state => state.submitAlbumChanges);
+    const submitAlbumChanges = useAlbumsStore(state => state.saveAlbum);
 
     useEffect(() => {
         const subscription = watch((value, { name }) => {
@@ -66,15 +66,14 @@ export const useAlbumEditor = ({ mode }: { mode: IMode }) => {
             number_of_tracks,
             format_name,
             genre_name,
-            description = "Hi",
+            description
         } = albumData;
 
         if (!cover) {
             toast.error("Please upload the cover image")
             return
         }
-
-        if (!date_of_issue || !number_of_tracks || !format_name || !genre_name || !name || !artist_name) {
+        if (!date_of_issue || !number_of_tracks || !format_name || !genre_name || !name || !artist_name || !description) {
             toast.error("Please fill out all fields")
             return;
         }
