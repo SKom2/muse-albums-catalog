@@ -21,7 +21,7 @@ export interface IAlbumsState {
   fetchAlbums: (nextPage?: boolean) => Promise<void>;
   fetchFavoriteAlbums: (nextPage?: boolean) => Promise<void>;
 
-  deleteAlbum: (album_id: number) => Promise<void>
+  deleteAlbum: (album_id: number, isFavoritesList: boolean) => Promise<void>
 
   addAlbumToFavorites: (album: IAlbum) => Promise<void>
   removeAlbumFromFavorites: (album_id: number) => Promise<void>

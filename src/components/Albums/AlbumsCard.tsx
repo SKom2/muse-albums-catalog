@@ -10,7 +10,7 @@ import TrashIcon from "@/assets/icons/TrashIcon.tsx";
 import useAlbumsStore from "@/services/zustand/albums/albums.store.ts";
 import LikeIcon from "@/assets/icons/LikeIcon.tsx";
 
-const AlbumsCard: FC<{ album: IAlbum }> = ({ album }) => {
+const AlbumsCard: FC<{ album: IAlbum, isFavoritesList: boolean }> = ({ album, isFavoritesList }) => {
   const navigate = useNavigate()
   const role = useAuthStore(state => state.role)
   const year = new Date(album.date_of_issue).getFullYear();
@@ -24,7 +24,7 @@ const AlbumsCard: FC<{ album: IAlbum }> = ({ album }) => {
   const handleOnDeleteButtonClick = async (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation()
 
-    await useAlbumsStore.getState().deleteAlbum(album.id)
+    await useAlbumsStore.getState().deleteAlbum(album.id, isFavoritesList)
   }
 
   const handleOnLikeButtonClick = async (event: MouseEvent<HTMLButtonElement>) => {

@@ -100,10 +100,11 @@ const useAlbumsStore = create<IAlbumsState>()(
                 }
             },
 
-            deleteAlbum: async (album_id: number) => {
+            deleteAlbum: async (album_id: number, onFavoritesPage: boolean = false) => {
                 const updateState = (state: IAlbumsState) => ({
-                    favoriteAlbums: state.favoriteAlbums?.filter(album => album.id !== album_id) || [],
+                    favoriteAlbums: state.favoriteAlbums?.filter(album => album.id !== album_id),
                     albums: state.albums?.filter(album => album.id !== album_id) || [],
+                    totalAlbums: (state.totalAlbums || 0) - 1,
                     totalFavoriteAlbums: (state.totalFavoriteAlbums || 0) - 1,
                 });
 
@@ -117,6 +118,7 @@ const useAlbumsStore = create<IAlbumsState>()(
                         albums: state.albums?.map(album =>
                             album.id === album_id ? { ...album, isFavorite: true } : album
                         ) || [],
+                        totalAlbums: (state.totalAlbums || 0) + 1,
                         totalFavoriteAlbums: (state.totalFavoriteAlbums || 0) + 1,
                     };
                 };
@@ -126,6 +128,28 @@ const useAlbumsStore = create<IAlbumsState>()(
 
                     await albumsService.deleteAlbumFromFavorites(album_id);
                     await albumsService.deleteAlbum(album_id);
+
+                    if (onFavoritesPage) {
+                        const indexOfLast = get().favoriteAlbums?.length || 0;
+                        const newAlbumResponse = await albumsService.fetchFavoriteAlbums(indexOfLast);
+                        if (newAlbumResponse && newAlbumResponse.albums.length > 0) {
+                            const newAlbum = newAlbumResponse.albums[0];
+                            set((state) => ({
+                                favoriteAlbums: [...(state.favoriteAlbums || []), newAlbum],
+                                totalFavoriteAlbums: (state.totalFavoriteAlbums || 0) + 1,
+                            }));
+                        }
+                    } else {
+                        const indexOfLast = get().albums?.length || 0;
+                        const newAlbumResponse = await albumsService.fetchAlbums(indexOfLast);
+                        if (newAlbumResponse && newAlbumResponse.albums.length > 0) {
+                            const newAlbum = newAlbumResponse.albums[0];
+                            set((state) => ({
+                                albums: [...(state.albums || []), newAlbum],
+                                totalAlbums: (state.totalAlbums || 0) + 1,
+                            }));
+                        }
+                    }
                 } catch (error: any) {
                     set((state: IAlbumsState) => restoreState(state));
 
@@ -231,13 +255,7 @@ const useAlbumsStore = create<IAlbumsState>()(
                     if (albumId) {
                         await albumsService.updateAlbumFields(albumId, data);
                     } else {
-                        const album = await albumsService.createNewAlbum(data);
-                        console.log(album)
-
-                        set((state: IAlbumsState) => ({
-                            albums: [...(state.albums || []), { ...album[0], isFavorite: false }],
-                        }));
-                        console.log(get().albums)
+                        await albumsService.createNewAlbum(data);
                     }
                 } catch (error: any) {
                     const message = error instanceof Error ? error.message : 'Unknown error';
@@ -249,8 +267,11 @@ const useAlbumsStore = create<IAlbumsState>()(
             name: 'albums-storage',
             storage: createJSONStorage(() => localStorage),
             partialize: state => ({
+                albums: state.albums,
+                favoriteAlbums: state.favoriteAlbums,
                 totalAlbums: state.totalAlbums,
                 totalFavoriteAlbums: state.totalFavoriteAlbums,
+                newAlbum: state.newAlbum,
             }),
         }
     )

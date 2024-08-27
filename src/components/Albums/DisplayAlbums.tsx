@@ -23,7 +23,7 @@ const DisplayAlbums: FC<{ isFavoritesList: boolean }> = ({ isFavoritesList }) =>
             </p>
         ) : (
             <div className=" flex flex-col w-full items-center gap-10 pb-10 relative">
-              <AlbumsGrid albums={albums} />
+              <AlbumsGrid albums={albums} isFavoritesList={isFavoritesList}/>
               {totalAlbums !== albums.length && (
                   <Button
                       size="large"

@@ -7,8 +7,10 @@ import useAuthStore from "@/services/zustand/auth/auth.store.ts";
 import useAlbumsStore from "@/services/zustand/albums/albums.store.ts";
 
 export const albumsService = {
-  async fetchAlbums(): Promise<any> {
-    const { from, to } = getRange(useAlbumsStore.getState().page);
+  async fetchAlbums(index?: number): Promise<any> {
+    const { from, to } = index
+        ? { from: index, to: index }
+        : getRange(useAlbumsStore.getState().page);
 
     const userId = useAuthStore.getState().user?.id;
     if (!userId) throw new Error("User not authenticated");
@@ -55,9 +57,10 @@ export const albumsService = {
     };
   },
 
-
-  async fetchFavoriteAlbums() {
-    const { from, to } = getRange(useAlbumsStore.getState().favoritesPage);
+  async fetchFavoriteAlbums(index?: number) {
+    const { from, to } = index
+        ? { from: index, to: index }
+        : getRange(useAlbumsStore.getState().favoritesPage);
 
     const userId = useAuthStore.getState().user?.id;
     if (!userId) throw new Error("User not authenticated");
@@ -68,7 +71,6 @@ export const albumsService = {
         .eq('user_id', userId)
         .not('album', 'is', null)
         .order('id', { ascending: false })
-        .range(from, to);
 
     const genre = useFiltersStore.getState().selectedGenre;
     if (genre) {
@@ -89,7 +91,9 @@ export const albumsService = {
       query = query.ilike('album.name', `%${searchText}%`);
     }
 
-    const { data, count, error } = await query;
+    const { count} = await query;
+
+    const { data, error } = await query.range(from, to);
 
     if (error) throw error;
 
@@ -100,13 +104,9 @@ export const albumsService = {
           isFavorite: true
         }))
 
-    const favoriteAlbums = useAlbumsStore.getState().favoriteAlbums
-
-    const filteredCount = albums.length + (favoriteAlbums ? favoriteAlbums?.length : 0);
-
     return {
       albums,
-      count: filteredCount * (useAlbumsStore.getState().page + 1) < useAlbumsStore.getState().album_per_page ? filteredCount : count,
+      count: count,
     };
   },
 
@@ -198,5 +198,5 @@ export const albumsService = {
     if (error) throw error
 
     return album
-  }
+  },
 }
