@@ -1,13 +1,11 @@
 import { create } from 'zustand';
 import {IAlbum, IAlbumFormFieldsValues, IAlbumsState} from '@/services/zustand/albums/albums.types.ts';
 import { albumsService } from '@/services/zustand/albums/albums.service.ts';
-import {createJSONStorage, persist} from "zustand/middleware";
 import {IMode} from "@/components/Album/AlbumContainer.tsx";
 
 export const INITIAL_PAGE = 0
 
 const useAlbumsStore = create<IAlbumsState>()(
-    persist(
         (set, get) => ({
             albums: null,
             totalAlbums: null,
@@ -262,19 +260,7 @@ const useAlbumsStore = create<IAlbumsState>()(
                     throw new Error("Failed to submit album changes: " + message);
                 }
             },
-        }),
-        {
-            name: 'albums-storage',
-            storage: createJSONStorage(() => localStorage),
-            partialize: state => ({
-                albums: state.albums,
-                favoriteAlbums: state.favoriteAlbums,
-                totalAlbums: state.totalAlbums,
-                totalFavoriteAlbums: state.totalFavoriteAlbums,
-                newAlbum: state.newAlbum,
-            }),
-        }
-    )
+        })
 )
 
 export default useAlbumsStore;
