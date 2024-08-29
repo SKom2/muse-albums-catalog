@@ -1,6 +1,6 @@
 import Button from '@/ui/Button.tsx';
 import { Link } from 'react-router-dom';
-import { FC } from 'react';
+import {FC} from 'react';
 import AuthInputGroup from '@/components/Auth/AuthInputGroup.tsx';
 import Error from '@/ui/Error.tsx';
 import ConfirmationPortal from '@/components/Auth/AuthConfirmationModal.tsx';
@@ -18,10 +18,10 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
     isPortalOpen,
     closePortal,
     isLogin,
-    isLoading
+    isAuthorizing
   } = useAuthForm(type);
 
-  const buttonText = isLoading ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up';
+  const buttonText = isAuthorizing ? 'Loading...' : isLogin ? 'Sign In' : 'Sign Up';
   const linkText = isLogin ? 'sign up' : 'log in';
   const linkPath = isLogin ? Paths.REGISTER : Paths.LOGIN;
 

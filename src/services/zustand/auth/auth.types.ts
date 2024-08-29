@@ -13,6 +13,7 @@ export interface IAuthState {
   user: User | null;
   role: UserRoleType;
   isLoading: boolean;
+  isAuthorizing: boolean;
   isAuthorized: boolean;
   errorMessage: string;
 

@@ -9,7 +9,7 @@ const handleAuth = async (
   data: FieldValues,
   set: (state: Partial<IAuthState>) => void,
 ) => {
-  set({ isLoading: true, errorMessage: '' });
+  set({ isAuthorizing: true, errorMessage: '' });
   try {
       const response = await authFunc(data);
 
@@ -29,7 +29,7 @@ const handleAuth = async (
       set({ errorMessage: message });
       throw "Failed to authorize: " + message;
   } finally {
-      set({ isLoading: false });
+      set({ isAuthorizing: false });
   }
 };
 
@@ -40,6 +40,7 @@ const useAuthStore = create<IAuthState>()(
             user: null,
             role: null,
             isLoading: true,
+            isAuthorizing: false,
             isAuthorized: false,
             errorMessage: '',
 

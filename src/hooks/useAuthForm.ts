@@ -9,7 +9,7 @@ export const useAuthForm = (type: 'register' | 'login') => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate()
   const { signIn, signUp  } = useAuthStore()
-  const isLoading= useAuthStore(state => state.isLoading)
+  const isAuthorizing = useAuthStore(state => state.isAuthorizing)
 
   const isLogin = type === 'login'
 
@@ -26,7 +26,7 @@ export const useAuthForm = (type: 'register' | 'login') => {
           setTimeout(() => {
             setIsPortalOpen(false);
             navigate(Paths.LOGIN);
-          }, 5000);
+          }, 10000);
         }
       })
       .catch((err) => {
@@ -38,7 +38,7 @@ export const useAuthForm = (type: 'register' | 'login') => {
     register,
     handleSubmit: handleSubmit(handleFormSubmit),
     isPortalOpen,
-    isLoading,
+    isAuthorizing,
     closePortal: () => setIsPortalOpen(false),
     isLogin
   };
