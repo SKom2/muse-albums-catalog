@@ -8,7 +8,8 @@ const AlbumGallery: FC<{ isFavoritesPage?: boolean }> = ({ isFavoritesPage = fal
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    if (width && width > 1550) {
+    useAlbumsStore.setState({ album_per_page: 6 });
+    if (width && width < 1800) {
       useAlbumsStore.setState({ album_per_page: 5 });
     } else if (width && width < 1550 && width >= 1240) {
       useAlbumsStore.setState({ album_per_page: 8 });

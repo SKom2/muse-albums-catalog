@@ -10,7 +10,7 @@ interface ButtonProps {
 const sizeClasses = {
   small: 'w-24 h-8',
   medium: 'w-32 h-11 max-md:w-full',
-  large: 'w-48 h-12 max-xl:w-40 max-lg:w-36',
+  large: 'w-48 h-12 max-xl:w-40 max-lg:w-36 max-md:w-24',
   full: 'w-full h-12',
 };
 

@@ -16,7 +16,7 @@ const Header = () => {
 
             <div className="h-full flex sm:flex-row justify-between items-center gap-4 max-sm:gap-0 max-md:px-4">
                 <HeaderSection alignment="start">
-                    <button type="button" className="h-24" onClick={() => navigate(Paths.ALBUMS)}>
+                    <button type="button" className="h-24 max-md:h-16" onClick={() => navigate(Paths.ALBUMS)}>
                         <Logo color={theme === 'dark' ? 'white' : 'black'}/>
                     </button>
                 </HeaderSection>
@@ -26,7 +26,7 @@ const Header = () => {
                 </HeaderSection>
             </div>
 
-            <div className="hidden z-20 max-md:flex bg-screen-default justify-between px-10 w-full h-[70px]">
+            <div className="hidden z-20 gap-4 max-md:flex bg-screen-default justify-between px-4 w-full h-[70px]">
                 <NavLinks/>
             </div>
 

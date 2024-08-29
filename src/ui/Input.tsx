@@ -31,7 +31,7 @@ const Input: FC<InputProps> = ({
             {...register(name)}
             type={type}
             placeholder={placeholder}
-            className="w-full h-11 pl-3 shadow rounded min-w-[170px] bg-input-default main-text border border-screen-default focus:outline-none appearance-none focus:border-content-secondary"
+            className="w-full h-11 pl-3 shadow rounded min-w-[120px] bg-input-default main-text border border-screen-default focus:outline-none appearance-none focus:border-content-secondary"
             autoComplete={autoComplete}
             required={required}
         />
