@@ -53,7 +53,7 @@ export const routes: IMainRoute[] = [
         },
         {
           name: 'favorite-albums',
-          title: 'Favorite albums',
+          title: 'Favorite',
           component: FavoriteAlbums,
           path: Paths.FAVORITE_ALBUMS,
           pageAccessRole: [Roles.VISITOR, Roles.ADMIN],
@@ -67,7 +67,7 @@ export const routes: IMainRoute[] = [
         },
         {
           name: 'create-album',
-          title: 'Create New album',
+          title: 'Create New',
           component: CreateAlbum,
           path: Paths.CREATE_ALBUM,
           pageAccessRole: Roles.ADMIN,
