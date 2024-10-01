@@ -13,19 +13,19 @@ export const albumsService = {
         : getRange(useAlbumsStore.getState().page);
 
     const userId = useAuthStore.getState().user?.id;
-    if (!userId) throw new Error("User not authenticated");
 
     let query = supabase
         .from('albums')
         .select(`
-            *,
-            favorites!left(
-                album_id
-            )
-        `, { count: 'exact' })
-        .eq('favorites.user_id', userId)
+          *,
+          favorites!left(album_id)
+      `, { count: 'exact' })
         .order('id', { ascending: false })
         .range(from, to);
+
+    if (userId) {
+      query = query.eq('favorites.user_id', userId)
+    }
 
     const genre = useFiltersStore.getState().selectedGenre;
     if (genre) {
@@ -48,7 +48,7 @@ export const albumsService = {
 
     const updatedAlbums = albums.map(album => ({
       ...album,
-      isFavorite: album.favorites.length > 0,
+      isFavorite: userId ? (album.favorites?.length ?? 0) > 0 : false,
     }));
 
     return {
