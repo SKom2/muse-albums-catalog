@@ -19,6 +19,7 @@ export interface IAuthState {
 
   signIn: (data: FieldValues) => Promise<void>
   signUp: (data: FieldValues) => Promise<void>
+  setRole: (user_id: string, role: string) => Promise<void>;
   getRole: (user_id: string) => Promise<void>
   getSession: () => Promise<void>
   signOut: () => Promise<void>

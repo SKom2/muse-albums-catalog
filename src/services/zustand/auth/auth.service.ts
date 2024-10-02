@@ -7,6 +7,7 @@ export const authService = {
       email: email,
       password: password
     })
+
     if (error) throw error;
 
     return data
@@ -37,6 +38,14 @@ export const authService = {
     if (error) throw error
 
     return data
+  },
+
+  async setUserRole (user_id: string, role: string) {
+    const { error } = await supabase
+        .from('user_roles')
+        .insert({ user_id: user_id, role_name: role })
+
+    if (error) throw error
   },
 
   async getUserRole (user_id: string) {

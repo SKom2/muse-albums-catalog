@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { IAuthState } from '@/services/zustand/auth/auth.types.ts';
+import {IAuthState, Roles} from '@/services/zustand/auth/auth.types.ts';
 import { FieldValues } from 'react-hook-form';
 import { authService } from '@/services/zustand/auth/auth.service.ts';
 import {createJSONStorage, persist} from "zustand/middleware";
@@ -12,6 +12,10 @@ const handleAuth = async (
   set({ isAuthorizing: true, errorMessage: '' });
   try {
       const response = await authFunc(data);
+
+      if (authFunc === authService.register) {
+          await useAuthStore.getState().setRole(response.user.id, Roles.VISITOR)
+      }
 
       if (response.session) {
           set({
@@ -50,6 +54,18 @@ const useAuthStore = create<IAuthState>()(
 
             signUp: async (data: FieldValues) => {
               return handleAuth(authService.register, data, set);
+            },
+
+            setRole: async (user_id, role) => {
+                set({ isAuthorizing: true });
+                try {
+                    await authService.setUserRole(user_id, role);
+                } catch (error: any) {
+                    const message = error instanceof Error ? error.message : 'Unknown error';
+                    throw "Failed to set role: " + message;
+                } finally {
+                    set({ isLoading: false });
+                }
             },
 
             getRole: async (user_id: string) => {

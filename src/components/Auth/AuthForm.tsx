@@ -1,6 +1,6 @@
 import Button from '@/ui/Button.tsx';
 import { Link } from 'react-router-dom';
-import {FC} from 'react';
+import {FC, memo} from 'react';
 import AuthInputGroup from '@/components/Auth/AuthInputGroup.tsx';
 import Error from '@/ui/Error.tsx';
 import ConfirmationPortal from '@/components/Auth/AuthConfirmationModal.tsx';
@@ -11,7 +11,7 @@ export interface AuthFormProps {
   type: 'register' | 'login';
 }
 
-const AuthForm: FC<AuthFormProps> = ({ type }) => {
+const AuthForm: FC<AuthFormProps> = memo(({ type }) => {
   const {
     register,
     handleSubmit,
@@ -43,6 +43,6 @@ const AuthForm: FC<AuthFormProps> = ({ type }) => {
       )}
     </>
   );
-};
+});
 
 export default AuthForm;

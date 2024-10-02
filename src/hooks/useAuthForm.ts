@@ -1,7 +1,7 @@
 import useAuthStore from '@/services/zustand/auth/auth.store.ts';
 import { useNavigate } from 'react-router-dom';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import {useCallback, useState} from 'react';
 import { Paths } from '@/routes/routes.types.ts';
 
 export const useAuthForm = (type: 'register' | 'login') => {
@@ -10,10 +10,9 @@ export const useAuthForm = (type: 'register' | 'login') => {
   const navigate = useNavigate()
   const { signIn, signUp  } = useAuthStore()
   const isAuthorizing = useAuthStore(state => state.isAuthorizing)
-
   const isLogin = type === 'login'
 
-  const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const handleFormSubmit: SubmitHandler<FieldValues> = useCallback(async (data) => {
     if (!data.email || !data.password) return;
 
     const action = isLogin ? signIn : signUp;
@@ -26,20 +25,23 @@ export const useAuthForm = (type: 'register' | 'login') => {
           setTimeout(() => {
             setIsPortalOpen(false);
             navigate(Paths.LOGIN);
-          }, 10000);
+          }, 15000);
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, [isLogin, isPortalOpen]);
 
   return {
     register,
     handleSubmit: handleSubmit(handleFormSubmit),
     isPortalOpen,
     isAuthorizing,
-    closePortal: () => setIsPortalOpen(false),
+    closePortal: () => {
+      setIsPortalOpen(false)
+      navigate(Paths.LOGIN);
+    },
     isLogin
   };
 }

@@ -1,4 +1,3 @@
-// components/ConfirmationPortal.tsx
 import {FC} from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@/ui/Button.tsx';
